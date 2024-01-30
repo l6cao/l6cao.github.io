@@ -3,10 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Linbo Cao's Portfolio</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+        .container { width: 80%; margin: auto; overflow: hidden; }
+        header { background: #333; color: #fff; padding-top: 30px; min-height: 70px; border-bottom: #006600 3px solid; }
+        header a { color: #fff; text-decoration: none; text-transform: uppercase; font-size: 16px; }
+        header ul { padding: 0; list-style: none; }
+        header li { display: inline; padding: 0 20px 0 20px; }
+        header #branding { float: left; }
+        header #branding h1 { margin: 0; }
+        header nav { float: right; margin-top: 10px; }
+        header .highlight, header .current a { color: #e8491d; font-weight: bold; }
+        header a:hover { color: #ffffff; font-weight: bold; }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is the beginning of my professional portfolio on GitHub Pages.</p>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Linbo Cao</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="container">
+            <h1 class="highlight">Welcome to My Online Portfolio</h1>
+            <p>I am a dedicated Math student with a passion for fintech and software development.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h1>About Me</h1>
+            <p>I am currently studying at the University of Waterloo and have a keen interest in financial technologies. This portfolio showcases my skills and projects.</p>
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="container">
+            <h1>My Resume</h1>
+            <p>You can view my resume <a href="#resume-link">here</a>. It outlines my educational background, programming skills, and the courses I've taken that have prepared me for a career in fintech.</p>
+        </div>
+    </section>
+
 </body>
 </html>
+
