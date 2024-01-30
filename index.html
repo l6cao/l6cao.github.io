@@ -5,80 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linbo Cao's Portfolio</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            color: #333;
-            background-color: #f5f5f5;
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
         }
-        .header, .footer {
-            background-color: #333;
-            color: #8dbf42;
-            padding: 10px 0;
+        .header {
+            background-color: #4b514a; /* Dark Grey */
+            color: white;
             text-align: center;
-            animation: fadeIn 2s;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
         }
-        .content {
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding-top: 60px; /* Space for header */
+            height: calc(100% - 60px);
+        }
+        .box {
+            height: 25%;
+            transition: all 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .box:hover {
+            height: 100%;
+        }
+        .box h2 {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            margin: 0;
+            color: white;
+            z-index: 10;
+        }
+        .box p, .box ul {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            color: white;
+            position: absolute;
+            width: 100%;
             padding: 20px;
-            max-width: 800px;
-            margin: auto;
         }
-        .section {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .box:hover p, .box:hover ul {
+            opacity: 1;
         }
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .section h2 {
-            color: #333;
-            font-size: 24px;
-            border-bottom: 2px solid #8dbf42;
-            padding-bottom: 5px;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        .box1 { background: linear-gradient(to bottom, #cde7ca, #b2d4b6); }
+        .box2 { background: linear-gradient(to bottom, #b2d4b6, #90b493); }
+        .box3 { background: linear-gradient(to bottom, #90b493, #728370); }
+        .box4 { background: linear-gradient(to bottom, #728370, #4b514a); }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Linbo Cao</h1>
         <p>Software Engineer | Data Enthusiast | Fintech Aficionado</p>
+<hi>Develve "Deeper" Below - Get the Pointer Down to Explore</hi>
     </div>
-
-    <div class="content">
-        <div class="section">
+    <div class="container">
+        <div class="box box1">
             <h2>About Me</h2>
-            <p>I am a Math student at the University of Waterloo, with a fervent interest in fintech and a strong foundation in programming.</p>
+            <p>Passionate about fintech and programming. Quick learner with a solid foundation in C++, Python, and JavaScript.</p>
         </div>
-
-        <div class="section">
+        <div class="box box2">
             <h2>Education</h2>
-            <p>University of Waterloo - Bachelor of Mathematics</p>
+            <p>University of Waterloo - Bachelor of Mathematics. Focus on algorithms, data structures, and financial technologies.</p>
         </div>
-
-        <div class="section">
+        <div class="box box3">
             <h2>Skills</h2>
-            <p>Proficient in C, C++, C#, Python, and JavaScript. Experienced in backend development and frontend crafting with Vue.js.</p>
+            <ul>
+                <li>Strong analytical and problem-solving skills.</li>
+                <li>Proficient in backend and frontend development.</li>
+                <li>Effective communicator, able to articulate complex ideas.</li>
+            </ul>
         </div>
-
-        <div class="section">
+        <div class="box box4">
             <h2>Contact</h2>
-            <p>Email: l6cao@uwaterloo.ca</p>
-            <p>Phone: 647-466-9388</p>
+            <ul>
+<li>Email: l6cao@uwaterloo.ca</li>
+            <li>Phone: 647-466-9388</li>
+</ul>
         </div>
-    </div>
-
-    <div class="footer">
-        <p>&copy; 2024 Linbo Cao</p>
     </div>
 </body>
 </html>
