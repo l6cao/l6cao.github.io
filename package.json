@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "predeploy": "npm run build",
-    "deploy": "touch out/.nojekyll && gh-pages -d out -t true"
+    "deploy": "echo > out\\.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
     "aos": "^2.3.4",
