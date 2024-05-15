@@ -37,9 +37,9 @@ export default function Home() {
 
         <div className="text-center mt-40">
           <h1 className="text-6xl font-bold mb-4">I Knew You'd Come! Welcome!</h1>
-<p className="text-2xl mb-4">
-  I am your go-to guy, <span className="text-darkgrey font-bold">Linbo Cao</span>. This website is dedicated to showcasing my skills, projects, and so much more.
-</p>
+          <p className="text-2xl mb-4">
+            I am your go-to guy, <span className="text-darkgrey font-bold">Linbo Cao</span>. This website is dedicated to showcasing my skills, projects, and so much more.
+          </p>
           <Link to="about" smooth={true} duration={1000}>
             <button className="text-xl bg-primary text-white py-2 px-4 rounded hover:bg-secondary transition duration-300">
               Learn More
