@@ -169,7 +169,7 @@ export default function Home() {
         <div className="bg-lightgrey text-darkgrey py-10 px-5 text-center min-h-screen flex flex-col justify-center" id="more">
           <h2 className="text-4xl font-bold mb-4">More About Me</h2>
           <p className="text-2xl max-w-4xl mx-auto mb-4">
-            Here are some additional details about me. 
+            Here will be some additional details about me. Tune in for updates!
           </p>
                     <div className="mt-6">
             <a href="https://github.com/l6cao" className="text-navy mx-2">GitHub</a>
