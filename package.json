@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "predeploy": "npm run build",
-    "deploy": "echo > out\\.nojekyll && gh-pages -d out -t true"
+    "deploy": "cross-env NODE_ENV=production next build && echo > out\\.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
     "aos": "^2.3.4",
