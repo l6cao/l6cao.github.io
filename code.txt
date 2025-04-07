@@ -1,0 +1,2532 @@
+# Project Structure
+
+.
+├── codebase.sh
+├── code.txt
+├── components
+│   ├── Header.js
+│   ├── layout
+│   │   ├── Card.js
+│   │   ├── Footer.js
+│   │   ├── GradientBackground.js
+│   │   ├── Navigation.js
+│   │   ├── RightNavigation.js
+│   │   └── Section.js
+│   ├── ui
+│   │   ├── Button.js
+│   │   ├── FlipCard.js
+│   │   ├── IconButton.js
+│   │   ├── Icons.js
+│   │   └── ProjectCard.js
+│   └── utils
+│       └── ScrollProvider.js
+├── jsconfig.json
+├── next.config.js
+├── next.config.mjs
+├── package.json
+├── package-lock.json
+├── pages
+│   ├── api
+│   │   └── hello.js
+│   ├── _app.js
+│   ├── cv.js
+│   ├── _document.js
+│   └── index.js
+├── postcss.config.js
+├── public
+│   ├── favicon.ico
+│   ├── icons
+│   │   ├── github.svg
+│   │   └── linkedin.svg
+│   ├── next.svg
+│   ├── profile_1.jpg
+│   ├── profile.jpg
+│   └── vercel.svg
+├── README.md
+├── styles
+│   ├── globals.css
+│   └── Home.module.css
+└── tailwind.config.js
+
+10 directories, 37 files
+
+# File Contents
+
+## components/Header.js
+```javascript
+// components/Header.js
+export default function Header() {
+  return (
+    <header className="bg-blue-600 p-4 text-white">
+      <h1 className="text-3xl">My Cool Website</h1>
+    </header>
+  );
+}
+```
+
+## components/layout/Card.js
+```javascript
+import { motion } from 'framer-motion';
+
+export default function Card({ children, className = '', animate = true }) {
+  return (
+    <motion.div
+      initial={animate ? { opacity: 0, y: 20 } : false}
+      whileInView={animate ? { opacity: 1, y: 0 } : false}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className={`
+        bg-surface
+        rounded-lg
+        shadow-sm
+        hover:shadow-md
+        transition-shadow
+        duration-300
+        ${className}
+      `}
+    >
+      {children}
+    </motion.div>
+  );
+}
+```
+
+## components/layout/Footer.js
+```javascript
+export default function Footer() {
+  return (
+    <footer className="bg-primary py-8 border-t border-accent-green/10">
+      <div className="max-w-6xl mx-auto px-4 text-center">
+        <p className="text-surface/60 text-sm">
+          © {new Date().getFullYear()} Linbo Cao. Built with Next.js and Tailwind CSS.
+        </p>
+      </div>
+    </footer>
+  );
+} ```
+
+## components/layout/GradientBackground.js
+```javascript
+import { motion } from 'framer-motion';
+
+export default function GradientBackground() {
+  return (
+    <div className="fixed inset-0 -z-10">
+      {/* Primary gradient background */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-primary via-[#141414] to-black"
+        style={{ mixBlendMode: 'normal' }}
+      />
+      
+      {/* Subtle accent gradient */}
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: `
+            radial-gradient(circle at 20% 30%, rgba(189, 255, 51, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(189, 255, 51, 0.05) 0%, transparent 50%)
+          `
+        }}
+      />
+    </div>
+  );
+} ```
+
+## components/layout/Navigation.js
+```javascript
+import { useState, useEffect } from 'react';
+import { Link as ScrollLink } from 'react-scroll';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+
+export default function Navigation() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Sections within the home page
+  const homeSubItems = [
+    { name: 'Home', to: 'home' },
+    { name: 'About', to: 'about' },
+    { name: 'Experience', to: 'experience' },
+    { name: 'Research', to: 'research' },
+    { name: 'Projects', to: 'projects' },
+    { name: 'Contact', to: 'contact' }
+  ];
+
+  // Top-level navigation items
+  const navItems = [
+    { name: 'Home', type: 'dropdown', items: homeSubItems },
+    { name: 'CV', type: 'link', path: '/cv' },
+    { name: 'Chat', type: 'link', path: '/chat' },
+    { name: 'More', type: 'link', path: '/more' },
+    { name: 'Contact', type: 'link', path: '/contact' }
+  ];
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`
+        fixed top-0 left-0 right-0 z-50
+        transition-all duration-300
+        ${isScrolled ? 'bg-primary/80 backdrop-blur-lg' : 'bg-transparent'}
+      `}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo/Name */}
+          <ScrollLink
+            to="home"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer"
+          >
+            <span className="text-accent-green font-bold text-xl font-title">Linbo Cao</span>
+          </ScrollLink>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <div key={item.name} className="relative group">
+                {item.type === 'dropdown' ? (
+                  <div 
+                    className="
+                      text-surface hover:text-accent-green
+                      transition-colors duration-300
+                      cursor-pointer text-sm flex items-center
+                    "
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    {item.name}
+                    <svg 
+                      className="ml-1 w-4 h-4" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M19 9l-7 7-7-7" 
+                      />
+                    </svg>
+                    
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {activeDropdown === item.name && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="
+                            absolute top-full -left-4 mt-2
+                            bg-black/90 backdrop-blur-xl
+                            border border-white/20
+                            rounded-md shadow-lg
+                            py-2 w-25
+                            z-50
+                          "
+                        >
+                          {item.items.map((subItem) => (
+                            <ScrollLink
+                              key={subItem.name}
+                              to={subItem.to}
+                              smooth={true}
+                              duration={500}
+                              className="
+                                block px-4 py-2
+                                text-surface hover:text-accent-green
+                                transition-colors duration-300
+                                cursor-pointer text-sm
+                              "
+                            >
+                              {subItem.name}
+                            </ScrollLink>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    href={item.path}
+                    className="
+                      text-surface hover:text-accent-green
+                      transition-colors duration-300
+                      cursor-pointer text-sm
+                    "
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-surface hover:text-accent-green"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {isMobileMenuOpen ? (
+                <path d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-primary/95 backdrop-blur-lg"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navItems.map((item) => (
+                <div key={item.name}>
+                  {item.type === 'dropdown' ? (
+                    <>
+                      <div 
+                        className="
+                          block px-3 py-2
+                          text-surface hover:text-accent-green
+                          transition-colors duration-300 font-medium
+                          cursor-pointer text-sm
+                        "
+                      >
+                        {item.name}
+                      </div>
+                      <div className="pl-4">
+                        {item.items.map((subItem) => (
+                          <ScrollLink
+                            key={subItem.name}
+                            to={subItem.to}
+                            smooth={true}
+                            duration={500}
+                            className="
+                              block px-3 py-2
+                              text-surface/80 hover:text-accent-green
+                              transition-colors duration-300
+                              cursor-pointer text-sm
+                            "
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {subItem.name}
+                          </ScrollLink>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.path}
+                      className="
+                        block px-3 py-2
+                        text-surface hover:text-accent-green
+                        transition-colors duration-300
+                        cursor-pointer text-sm
+                      "
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+}
+```
+
+## components/layout/RightNavigation.js
+```javascript
+import { useState, useEffect } from 'react';
+import { Link as ScrollLink } from 'react-scroll';
+import { motion, AnimatePresence } from 'framer-motion';
+
+export default function RightNavigation() {
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  const sections = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'research', label: 'Research' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.scrollY;
+      sections.forEach(({ id }) => {
+        const element = document.getElementById(id);
+        if (element) {
+          const { top, bottom } = element.getBoundingClientRect();
+          if (top <= window.innerHeight / 2 && bottom >= window.innerHeight / 2) {
+            setActiveSection(id);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed right-4 top-1/2 -translate-y-1/2 z-50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Semi-transparent background layer */}
+      <motion.div
+        className={`
+          absolute right-0 rounded-l-xl bg-primary/80 backdrop-blur-sm
+          ${isHovered ? 'border border-white/10' : ''}
+        `}
+        initial={{ 
+          width: '48px',
+          height: '100%',
+          right: '-8px',
+        }}
+        animate={{ 
+          width: isHovered ? '160px' : '48px',
+          right: isHovered ? '-12px' : '-8px',
+        }}
+        transition={{ duration: 0.3 }}
+        style={{
+          top: '-40px',
+          bottom: '-40px',
+        }}
+      />
+
+      <div className="flex flex-col items-end gap-6 relative z-10 py-4 -translate-y-10">
+        {sections.map(({ id, label }) => (
+          <div key={id} className="group relative flex items-center">
+            <ScrollLink
+              to={id}
+              smooth={true}
+              duration={1200}
+              spy={true}
+              className="cursor-pointer flex items-center"
+            >
+              {/* Label tooltip - Now part of the clickable area */}
+              <motion.div 
+                className="
+                  absolute right-full mr-8
+                  text-sm text-surface
+                  whitespace-nowrap
+                  text-right
+                  font-medium
+                  cursor-pointer
+                  group-hover:text-accent-green
+                  transition-colors duration-300
+                "
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ 
+                  opacity: isHovered ? 1 : 0,
+                  x: isHovered ? 0 : 10
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {label}
+              </motion.div>
+
+              {/* Dot */}
+              <motion.div 
+                className={`
+                  w-1.5 h-1.5 rounded-full 
+                  ${activeSection === id ? 'bg-surface' : 'bg-surface/40'}
+                  transition-colors duration-300
+                  group-hover:bg-accent-green
+                `}
+              />
+              
+              {/* Animated line */}
+              <motion.div 
+                className={`
+                  h-0.5 ml-1
+                  ${activeSection === id ? 'bg-surface' : 'bg-surface/40'}
+                  transition-colors duration-300
+                  group-hover:bg-accent-green
+                `}
+                initial={{ width: '8px' }}
+                animate={{ 
+                  width: isHovered ? '24px' : '8px',
+                }}
+                transition={{ duration: 0.3 }}
+              />
+            </ScrollLink>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+} ```
+
+## components/layout/Section.js
+```javascript
+import { useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { useNonLinearScroll } from '../utils/ScrollProvider';
+
+export default function Section({ 
+  children, 
+  className = '', 
+  id = '',
+  fullHeight = false,
+  animate = true,
+  isCover = false,
+  darkBg = false
+}) {
+  const sectionRef = useRef(null);
+  
+  const isInView = useInView(sectionRef, { 
+    once: false,
+    margin: "-45% 0px -45% 0px",
+    amount: 0.1
+  });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+    smooth: 10
+  });
+
+  const scaleProgress = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0.92, 1, 1, 0.92]
+  );
+
+  const { scrollYProgress: bgScrollProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "center center", "end center"]
+  });
+
+  const bgOpacityProgress = useTransform(
+    bgScrollProgress,
+    [0, 0.4, 0.6, 1],
+    [0, 1, 1, 0]
+  );
+
+  const baseClasses = `
+    ${fullHeight ? 'min-h-screen' : 'py-24'}
+    flex flex-col
+    justify-center
+    items-center
+    px-4 md:px-8 lg:px-16
+    relative
+    ${className}
+  `;
+
+  if (isCover || !animate) {
+    return (
+      <section
+        ref={sectionRef}
+        id={id}
+        className={baseClasses}
+      >
+        {children}
+      </section>
+    );
+  }
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      id={id}
+      initial={{ 
+        opacity: 0.9,
+        scale: 0.92,
+        y: 30
+      }}
+      animate={isInView ? {
+        opacity: 1,
+        scale: 1,
+        y: 0
+      } : {
+        opacity: 0.9,
+        scale: 0.92,
+        y: 0
+      }}
+      transition={{ 
+        duration: 0.8,
+        type: "spring",
+        stiffness: 50,
+        damping: 20,
+        mass: 1,
+        restDelta: 0.001
+      }}
+      style={{
+        scale: scaleProgress
+      }}
+      className={baseClasses}
+    >
+      {darkBg && (
+        <motion.div 
+          className="absolute inset-0 bg-primary/90 rounded-xl backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          style={{
+            opacity: bgOpacityProgress,
+          }}
+          transition={{
+            duration: 0.3
+          }}
+        />
+      )}
+      
+      <div className="relative z-10 w-full">
+        {children}
+      </div>
+    </motion.section>
+  );
+}
+```
+
+## components/ui/Button.js
+```javascript
+import { motion } from 'framer-motion';
+import { Link as ScrollLink } from 'react-scroll';
+
+export default function Button({
+  children,
+  variant = 'primary', // primary, outline, text
+  size = 'md', // sm, md, lg
+  className = '',
+  onClick,
+  href,
+  to, // New prop for scroll links
+  ...props
+}) {
+  const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 relative";
+  
+  const variants = {
+    primary: `
+      bg-accent-green text-primary
+      hover:bg-accent-hover
+      active:scale-[0.98]
+      disabled:bg-muted disabled:text-text-secondary
+    `,
+    outline: `
+      border-2 border-accent-green text-accent-green
+      hover:bg-accent-green/10
+      active:scale-[0.98]
+      disabled:border-muted disabled:text-muted
+    `,
+    text: `
+      text-accent-green hover:bg-accent-green/10
+      active:scale-[0.98]
+      disabled:text-muted
+    `
+  };
+
+  const sizes = {
+    sm: 'text-sm px-4 py-1.5',
+    md: 'text-base px-6 py-2',
+    lg: 'text-lg px-8 py-3'
+  };
+
+  // Add hover glow effect
+  const hoverAnimation = {
+    initial: { boxShadow: '0 0 0 rgba(0, 245, 142, 0)' },
+    hover: { 
+      boxShadow: '0 0 20px rgba(0, 245, 142, 0.3)',
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const Component = href ? 'a' : 'button';
+
+  // If 'to' prop exists, use ScrollLink
+  if (to) {
+    return (
+      <ScrollLink
+        to={to}
+        smooth={true}
+        duration={1200}
+        offset={-80}
+        spy={true}
+        hashSpy={true}
+        spyThrottle={500}
+        className={`
+          ${baseStyles}
+          ${variants[variant]}
+          ${sizes[size]}
+          ${className}
+          cursor-pointer
+        `}
+        {...props}
+      >
+        {children}
+      </ScrollLink>
+    );
+  }
+
+  return (
+    <motion.div
+      initial="initial"
+      whileHover="hover"
+      animate="initial"
+    >
+      <Component
+        href={href}
+        onClick={onClick}
+        className={`
+          ${baseStyles}
+          ${variants[variant]}
+          ${sizes[size]}
+          ${className}
+        `}
+        {...props}
+      >
+        <motion.span
+          variants={hoverAnimation}
+          className="absolute inset-0 rounded-lg"
+        />
+        <span className="relative">{children}</span>
+      </Component>
+    </motion.div>
+  );
+}
+```
+
+## components/ui/FlipCard.js
+```javascript
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'react-feather';
+import { createPortal } from 'react-dom';
+
+export default function FlipCard({ frontContent, backContent, className = '' }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef(null);
+  const [cardRect, setCardRect] = useState(null);
+  const [mounted, setMounted] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0
+  });
+
+  // Handle client-side rendering and window resize
+  useEffect(() => {
+    setMounted(true);
+    
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      setMounted(false);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Prevent scrolling when expanded
+  useEffect(() => {
+    if (isExpanded) {
+      // Save the current scroll position
+      const scrollY = window.scrollY;
+      
+      // Add styles to prevent scrolling and maintain position
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Restore scrolling when unmounted
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isExpanded]);
+
+  // Handle mouse move for glossy effect
+  const handleMouseMove = (e) => {
+    if (!cardRef.current || isExpanded) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    
+    setMousePosition({ x, y });
+  };
+
+  // Card expansion
+  const handleCardClick = () => {
+    if (!isExpanded && cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect();
+      setCardRect(rect);
+      setIsExpanded(true);
+      setIsFlipped(true);
+    }
+  };
+
+  // Simple close function
+  const handleClose = (e) => {
+    if (e) e.stopPropagation();
+    setIsExpanded(false);
+    setIsFlipped(false);
+    setIsHovered(false);
+    setMousePosition({ x: 0, y: 0 });
+  };
+
+  // Close on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isExpanded) {
+        handleClose();
+      }
+    };
+    
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isExpanded]);
+
+  // Calculate animation properties based on original card position
+  const getExpandAnimation = () => {
+    if (!cardRect || !mounted) {
+      return {
+        initial: { opacity: 0, scale: 0.5 },
+        animate: { opacity: 1, scale: 1 }
+      };
+    }
+
+    // Target dimensions and position
+    const targetWidth = Math.min(windowSize.width * 0.9, 768);
+    const targetHeight = Math.min(windowSize.height * 0.8, 600);
+    
+    const targetX = windowSize.width / 2;
+    const targetY = windowSize.height / 2;
+    
+    // Original position (center of the card)
+    const originX = cardRect.left + cardRect.width / 2;
+    const originY = cardRect.top + cardRect.height / 2;
+    
+    // Calculate scale factor from original to target
+    const scaleX = cardRect.width / targetWidth;
+    const scaleY = cardRect.height / targetHeight;
+    const scale = Math.max(scaleX, scaleY);
+    
+    // Calculate position offset
+    const x = originX - targetX;
+    const y = originY - targetY;
+
+    return {
+      initial: { 
+        opacity: 1,
+        scale,
+        x,
+        y,
+        width: targetWidth,
+        height: targetHeight,
+      },
+      animate: { 
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        y: 0,
+        width: targetWidth,
+        height: targetHeight,
+      },
+      exit: {
+        opacity: 0,
+        scale: 0.4,
+        x,
+        y,
+        width: targetWidth,
+        height: targetHeight,
+        transition: { duration: 0.4 }
+      }
+    };
+  };
+
+  // Normal card - keep it in DOM even when expanded but make it invisible
+  return (
+    <>
+      <motion.div 
+        className={`relative w-full h-full min-h-[300px] ${isExpanded ? 'invisible' : 'visible'}`}
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleCardClick}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.2 }}
+        style={{ perspective: '1000px' }}
+      >
+        <div
+          className={`
+            w-full h-full
+            bg-zinc-900 rounded-lg p-6
+            border border-accent-green/10
+            hover:border-accent-green/30
+            transition-colors duration-300
+            overflow-hidden
+            cursor-pointer
+          `}
+        >
+          {/* Glossy effect overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: isHovered && !isExpanded ? `
+                radial-gradient(
+                  circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, 
+                  rgba(255, 255, 255, 0.1) 0%, 
+                  rgba(255, 255, 255, 0) 25%
+                )
+              ` : '',
+              boxShadow: isHovered && !isExpanded ? 'inset 0 0 20px rgba(189, 255, 51, 0.03)' : '',
+              borderRadius: '0.5rem'
+            }}
+          />
+          {frontContent}
+        </div>
+      </motion.div>
+
+      {/* Portal for the expanded card */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {isExpanded && (
+            <div className="fixed inset-0 z-[9999]">
+              {/* Backdrop with fade animation */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }} 
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+                onClick={handleClose} 
+                style={{ cursor: 'pointer' }}
+              />
+              
+              {/* Card with animation from original position */}
+              <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
+                <motion.div
+                  {...getExpandAnimation()}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                    duration: 0.6
+                  }}
+                  className="pointer-events-auto rounded-lg overflow-hidden"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* The flipping part */}
+                  <motion.div
+                    className="w-full h-full"
+                    style={{ transformStyle: 'preserve-3d' }}
+                    animate={{ rotateY: isFlipped ? 180 : 0 }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    {/* Front face */}
+                    <div 
+                      style={{ 
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                      }}
+                      className="bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                    >
+                      <div className="relative z-20">
+                        {frontContent}
+                      </div>
+                      
+                      <button
+                        className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                 text-surface/70 hover:text-surface transition-colors z-30"
+                        onClick={handleClose}
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                    
+                    {/* Back face */}
+                    <div 
+                      style={{ 
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        transform: 'rotateY(180deg)',
+                      }}
+                      className="bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                    >
+                      <div className="relative z-20">
+                        {backContent}
+                      </div>
+                      
+                      <button
+                        className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                 text-surface/70 hover:text-surface transition-colors z-30"
+                        onClick={handleClose}
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
+  );
+}```
+
+## components/ui/IconButton.js
+```javascript
+import { motion } from 'framer-motion';
+
+export default function IconButton({
+  icon,
+  label,
+  className = '',
+  onClick,
+  ...props
+}) {
+  return (
+    <motion.span
+      onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className={`
+        inline-flex items-center justify-center
+        w-10 h-10 rounded-full
+        bg-surface/10 hover:bg-surface/20
+        text-accent-green
+        transition-colors duration-300
+        cursor-pointer
+        ${className}
+      `}
+      aria-label={label}
+      {...props}
+    >
+      {icon}
+    </motion.span>
+  );
+} ```
+
+## components/ui/Icons.js
+```javascript
+```
+
+## components/ui/ProjectCard.js
+```javascript
+import FlipCard from './FlipCard';
+import Button from './Button';
+
+export default function ProjectCard({
+  title,
+  description,
+  technologies,
+  links = {},
+  image,
+  className = ''
+}) {
+  const frontContent = (
+    <div className="h-full flex flex-col">
+      {image && (
+        <div className="w-full h-48 mb-4 overflow-hidden rounded-t-lg">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      <h3 className="text-xl font-bold text-surface mb-2">{title}</h3>
+      <p className="text-surface/70 line-clamp-3 mb-4">{description}</p>
+      <div className="mt-auto">
+        <p className="text-accent-green text-sm">Click to learn more →</p>
+      </div>
+    </div>
+  );
+
+  const backContent = (
+    <div className="h-full flex flex-col">
+      <h3 className="text-xl font-bold text-surface mb-4">{title}</h3>
+      <p className="text-surface/70 mb-4">{description}</p>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {technologies.map((tech, index) => (
+          <span
+            key={index}
+            className="px-2 py-1 text-xs rounded-full bg-accent-green/10 text-accent-green"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+      <div className="mt-auto flex gap-2">
+        {links.github && (
+          <Button
+            href={links.github}
+            variant="outline"
+            size="sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </Button>
+        )}
+        {links.demo && (
+          <Button
+            href={links.demo}
+            variant="primary"
+            size="sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Live Demo
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <FlipCard
+      frontContent={frontContent}
+      backContent={backContent}
+      className={className}
+    />
+  );
+} ```
+
+## components/utils/ScrollProvider.js
+```javascript
+import { useEffect } from 'react';
+import { useSpring, useScroll, useTransform } from 'framer-motion';
+
+export function useNonLinearScroll(targetRef) {
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Create a non-linear scroll effect using spring physics
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return smoothProgress;
+} ```
+
+## jsconfig.json
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
+```
+
+## next.config.js
+```javascript
+const isProd = process.env.NODE_ENV === 'production';
+
+module.exports = {
+  basePath: isProd ? '' : '',
+  assetPrefix: isProd ? '/' : '',
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  experimental: {
+    scrollRestoration: true,
+  },
+};
+```
+
+## next.config.mjs
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+export default nextConfig;
+```
+
+## package.json
+```json
+{
+  "name": "my-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "predeploy": "npm run build",
+    "deploy": "echo > out\\.nojekyll && gh-pages -d out -t true"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "framer-motion": "^11.0.3",
+    "next": "^14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-feather": "^2.0.10",
+    "react-intersection-observer": "^9.8.1",
+    "react-scroll": "^1.9.0",
+    "react-spring": "^9.7.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "create-file": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "gh-pages": "^5.0.0",
+    "postcss": "^8.4.38",
+    "rimraf": "^5.0.7",
+    "tailwindcss": "^3.4.3"
+  }
+}
+```
+
+## postcss.config.js
+```javascript
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+## tailwind.config.js
+```javascript
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#1C1C1C',    // Almost black
+        secondary: '#2C2C2C',  // Dark grey
+        accent: {
+          green: '#BDFF33',    // Updated OKX lime green
+          hover: '#9FEE35',    // Slightly darker for hover
+        },
+        surface: '#FFFFFF',    // White
+        muted: '#F3F4F6',     // Light grey
+        text: {
+          primary: '#1C1C1C',
+          secondary: '#4B5563',
+        }
+      },
+      animation: {
+        'card-flip': 'flip 0.6s ease-in-out',
+        'fade-in': 'fadeIn 0.5s ease-in',
+        'glow': 'glow 1.5s ease-in-out infinite alternate',
+      },
+      keyframes: {
+        flip: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '100%': { transform: 'rotateY(180deg)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        glow: {
+          'from': { 'box-shadow': '0 0 10px #00F58E' },
+          'to': { 'box-shadow': '0 0 20px #00F58E' }
+        }
+      },
+      fontFamily: {
+        title: ['var(--font-chakra-petch)', 'sans-serif'],
+        // Default system fonts for body text
+      },
+      letterSpacing: {
+        tighter: '-0.05em',
+      }
+    },
+  },
+  plugins: [],
+}
+```
+
+## pages/api/hello.js
+```javascript
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+
+export default function handler(req, res) {
+  res.status(200).json({ name: "John Doe" });
+}
+```
+
+## pages/_app.js
+```javascript
+import "@/styles/globals.css";
+import { Chakra_Petch } from 'next/font/google';
+
+const chakraPetch = Chakra_Petch({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-chakra-petch',
+});
+
+export default function App({ Component, pageProps }) {
+  return (
+    <main className={`${chakraPetch.variable}`}>
+      <Component {...pageProps} />
+    </main>
+  );
+}
+```
+
+## pages/_document.js
+```javascript
+import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+```
+
+## pages/index.js
+```javascript
+import Head from 'next/head';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Navigation from '../components/layout/Navigation';
+import Section from '../components/layout/Section';
+import Button from '../components/ui/Button';
+import IconButton from '../components/ui/IconButton';
+import ProjectCard from '../components/ui/ProjectCard';
+import FlipCard from '../components/ui/FlipCard';
+import Footer from '../components/layout/Footer';
+import RightNavigation from '../components/layout/RightNavigation';
+import GradientBackground from '../components/layout/GradientBackground';
+
+export default function Home() {
+  useEffect(() => {
+    // Reset scroll position on page load
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Fade in animation for hero section
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8 }
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Linbo Cao - AI Research & Development</title>
+        <meta name="description" content="LLM Research & Development | UX/UI Developer | AI Ethics Explorer" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <GradientBackground />
+      <Navigation />
+      <RightNavigation />
+
+      {/* Hero Section */}
+      <Section 
+        id="home" 
+        fullHeight 
+        className="pr-20"
+        isCover={true}
+      >
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <motion.div 
+            className="grid md:grid-cols-2 gap-12 items-center"
+            initial="initial"
+            animate="animate"
+            variants={fadeIn}
+          >
+            {/* Profile Image - Now on the left */}
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="aspect-square rounded-2xl overflow-hidden relative">
+                {/* Inner shadow/vignette effect */}
+                <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_30px_rgba(0,0,0,0.6)] rounded-2xl z-10"></div>
+                
+                {/* The image */}
+                <img
+                  src="/profile.jpg"
+                  alt="Linbo Cao"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            {/* Text Content - Now on the right */}
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-title tracking-tighter text-surface">
+                Linbo Cao
+                <br />
+                <span className="text-accent-green font-accent whitespace-nowrap">LLM Researcher</span>
+                <br />
+                & Developer
+              </h1>
+              <p className="text-lg md:text-xl text-surface/80">
+                <span className="whitespace-nowrap">Mathematics Undergraduate at UWaterloo</span>
+                <br />
+                LLM Addict
+              </p>
+              <div className="flex gap-4">
+                <Button 
+                  to="projects"
+                  variant="primary"
+                >
+                  View Projects
+                </Button>
+                <Button 
+                  to="about"
+                  variant="outline"
+                >
+                  About Me
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* About Section */}
+      <Section id="about" className="pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-8">
+            About <span className="text-accent-green font-accent">Me</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* About Content */}
+            <div className="space-y-6">
+              <p className="text-lg text-surface/80">
+                Mathematics undergraduate at the University of Waterloo (2B term), with a growing passion for Large Language Models and AI systems. Self-driven learner actively exploring the practical applications and technical implementations of LLMs.
+              </p>
+              <p className="text-lg text-surface/80">
+                Currently fortunate to be learning through collaborative research projects while balancing academic studies. Particularly interested in LLM system development and implementation challenges.
+              </p>
+            </div>
+
+            {/* Skills Grid */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-surface">Technical Skills</h3>
+              
+              {/* Programming Languages */}
+              <div className="space-y-2">
+                <h4 className="text-accent-green">Programming Languages</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Python', 'JavaScript', 'C++', 'C#', 'R'].map((skill) => (
+                    <span 
+                      key={skill}
+                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* AI/ML */}
+              <div className="space-y-2">
+                <h4 className="text-accent-green">AI & Machine Learning</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    'LLM Development',
+                    'Natural Language Processing',
+                    'PyTorch',
+                    'TensorFlow'
+                  ].map((skill) => (
+                    <span 
+                      key={skill}
+                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Web Development */}
+              <div className="space-y-2">
+                <h4 className="text-accent-green">Web Development</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    'React',
+                    'Next.js',
+                    'Tailwind CSS',
+                    'UI/UX Design'
+                  ].map((skill) => (
+                    <span 
+                      key={skill}
+                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Experience Section - New */}
+      <Section id="experience" className="pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
+            Work <span className="text-accent-green font-accent">Experience</span>
+          </h2>
+          {/* Experience content will be added later */}
+        </div>
+      </Section>
+
+      {/* Research Section */}
+      <Section id="research" className="pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
+            Research <span className="text-accent-green font-accent">Focus</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <FlipCard
+              frontContent={
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-surface">LLM Privacy & Safety</h3>
+                  <p className="text-surface/80">
+                    Investigating privacy implications in LLM reasoning frameworks and developing secure testing environments.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Privacy Analysis
+                    </span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Security Testing
+                    </span>
+                  </div>
+                </div>
+              }
+              backContent={
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-surface">Key Findings</h3>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>Privacy preservation in LLM reasoning</li>
+                    <li>Secure testing methodologies</li>
+                    <li>Implementation frameworks</li>
+                  </ul>
+                  <Button 
+                    href="https://arxiv.org/abs/2409.13979"
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                  >
+                    Read Paper
+                  </Button>
+                </div>
+              }
+            />
+
+            <FlipCard
+              frontContent={
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-surface">AI Ethics & Development</h3>
+                  <p className="text-surface/80">
+                    Exploring ethical implications of AI systems and developing responsible AI frameworks.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      AI Ethics
+                    </span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Responsible AI
+                    </span>
+                  </div>
+                </div>
+              }
+              backContent={
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-surface">Current Focus</h3>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>Ethical AI development practices</li>
+                    <li>Bias detection and mitigation</li>
+                    <li>Transparency in AI systems</li>
+                  </ul>
+                </div>
+              }
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Projects Section */}
+      <Section id="projects" className="pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-8">
+            My <span className="text-accent-green font-accent">Projects</span>
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ProjectCard
+              title="LLM Privacy Research"
+              description="Investigating privacy implications in LLM reasoning frameworks and implementing testing environments for LLM security analysis."
+              technologies={['Python', 'LLM APIs', 'vLLM', 'Docker']}
+              links={{
+                github: 'https://github.com/yourusername/project',
+                paper: 'https://arxiv.org/abs/2409.13979'
+              }}
+            />
+            <ProjectCard
+              title="Path Visualization System"
+              description="Interactive web application demonstrating multiple pathfinding algorithms with visual representation for educational purposes."
+              technologies={['React', 'JavaScript', 'Algorithms']}
+              links={{
+                github: 'https://github.com/l6cao/pathfinding-visualizer',
+                demo: '#'
+              }}
+            />
+            <ProjectCard
+              title="NotiSimplify"
+              description="Text simplification system for notifications using LLM prompting with basic input/output interface."
+              technologies={['C#', 'LLM Integration', 'UI Design']}
+              links={{
+                github: 'https://github.com/l6cao/NotiSimplify'
+              }}
+            />
+          </div>
+        </div>
+      </Section>
+
+      {/* Contact Section */}
+      <Section id="contact" className="pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-12">
+          <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
+            Get in <span className="text-accent-green font-accent">Touch</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <p className="text-lg text-surface/80">
+                Interested in collaborating on research or have questions about my work? 
+                Feel free to reach out through any of these platforms.
+              </p>
+              
+              {/* Contact Links */}
+              <div className="flex flex-col space-y-4">
+                <a 
+                  href="mailto:your.email@uwaterloo.ca"
+                  className="flex items-center space-x-4 text-surface hover:text-accent-green transition-colors duration-300 group"
+                >
+                  <IconButton
+                    icon={
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                      </svg>
+                    }
+                    label="Email"
+                  />
+                  <span>your.email@uwaterloo.ca</span>
+                </a>
+                
+                <a 
+                  href="https://github.com/l6cao"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-4 text-surface hover:text-accent-green transition-colors duration-300 group"
+                >
+                  <IconButton
+                    icon={
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    }
+                    label="GitHub"
+                  />
+                  <span>github.com/l6cao</span>
+                </a>
+                
+                <a 
+                  href="https://linkedin.com/in/your-profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-4 text-surface hover:text-accent-green transition-colors duration-300 group"
+                >
+                  <IconButton
+                    icon={
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                      </svg>
+                    }
+                    label="LinkedIn"
+                  />
+                  <span>linkedin.com/in/your-profile</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 bg-accent-green/5 rounded-lg transform rotate-3"></div>
+              <div className="relative bg-primary/80 border border-accent-green/20 p-8 rounded-lg shadow-lg backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-surface mb-4">Quick Message</h3>
+                <form className="space-y-4">
+                  <input
+                    type="email"
+                    placeholder="Your email"
+                    className="w-full px-4 py-2 rounded-lg bg-secondary/80 text-surface border border-accent-green/20 focus:border-accent-green focus:outline-none placeholder:text-surface/50"
+                  />
+                  <textarea
+                    placeholder="Your message"
+                    rows="4"
+                    className="w-full px-4 py-2 rounded-lg bg-secondary/80 text-surface border border-accent-green/20 focus:border-accent-green focus:outline-none placeholder:text-surface/50"
+                  ></textarea>
+                  <Button type="submit" className="w-full">
+                    Send Message
+                  </Button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Footer />
+    </>
+  );
+}```
+
+## pages/cv.js
+```javascript
+import Head from 'next/head';
+import Link from 'next/link';
+import { ArrowLeft } from 'react-feather';
+import Footer from '../components/layout/Footer';
+
+export default function CV() {
+  return (
+    <>
+      <Head>
+        <title>CV - Linbo Cao</title>
+        <meta name="description" content="Professional CV of Linbo Cao - LLM Research & Development" />
+      </Head>
+      
+      <main className="pt-8 pb-16 bg-white text-black min-h-screen">
+        <div className="max-w-4xl mx-auto px-4">
+          {/* Back Button */}
+          <div className="mb-6">
+            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors">
+              <ArrowLeft size={20} className="mr-2" />
+              <span>Back to Home</span>
+            </Link>
+          </div>
+          
+          {/* CV Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2">Curriculum Vitae</h1>
+            <h2 className="text-xl text-gray-700">Linbo Cao</h2>
+            
+            <div className="border-t border-gray-200 py-4 my-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="font-bold mb-2">Contact Information</h3>
+                  <ul className="space-y-1">
+                    <li>Email: l6cao@uwaterloo.ca</li>
+                    <li>Location: Waterloo, ON, Canada</li>
+                    <li>LinkedIn: <a href="https://www.linkedin.com/in/linbo-cao/" className="text-[#6ba123] hover:text-[#557f1b]">linkedin.com/in/linbo-cao</a></li>
+                    <li>Google Scholar: <a href="https://scholar.google.com/citations?user=MvVnENkAAAAJ" className="text-[#6ba123] hover:text-[#557f1b]">Profile</a></li>
+                    <li>GitHub: <a href="https://github.com/l6cao" className="text-[#6ba123] hover:text-[#557f1b]">github.com/l6cao</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Professional Summary */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Professional Summary</h2>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Mathematics undergraduate at the University of Waterloo with a focus on AI research and development.</li>
+              <li>Possesses an extraordinarily strong interest and experience in LLM development and implementation.</li>
+              <li>Actively engaged in ongoing research encompassing LLM evaluation, PEFT, ethics, and alignment.</li>
+              <li>Quick learner capable of managing tasks across diverse fields, including IT maintenance and UI/UX design.</li>
+              <li>Demonstrated excellence in competitive programming and mathematics competitions.</li>
+            </ul>
+          </section>
+          
+          {/* Education */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Education</h2>
+            <div className="mb-4">
+              <div className="mb-1">
+                <h3 className="font-bold">Bachelor of Mathematics, Honours Co-op</h3>
+                <p>University of Waterloo, 2023 - 2028 (2B Term)</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Relevant coursework: Statistics, Objective Programming, Technical Writing</li>
+                <li>President's Scholarship of Distinction recipient</li>
+              </ul>
+            </div>
+            <div className="mb-4">
+              <div className="mb-1">
+                <h3 className="font-bold">Secondary Education</h3>
+                <p>Westfield Secondary School</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Valedictorian</li>
+                <li>Ranked 12th in 2023 Canadian Computing Competition (CCC) Senior Group</li>
+                <li>Ranked top 5%, Honor Roll in Euclid Mathematics Contest</li>
+              </ul>
+            </div>
+          </section>
+          
+          {/* Research Experience */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Research Experience</h2>
+            
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">Bias and Toxicity in Role-Play Reasoning</h3>
+                <p>Research Contributor, August 2024 - Present</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Co-first author on research paper currently under peer review</li>
+                <li>Investigated bias and toxicity affects in LLM role-play scenarios</li>
+                <li>Technologies: Python, LLM APIs, LLM Benchmarks, Data Management, Matplotlib, NumPy, pandas</li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2409.13979" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+              </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">Bias and Toxicity in Other Reasoning Frameworks in LLMs</h3>
+                <p>Research Contributor, November 2024 - Present</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Studying bias and toxicity patterns in complex reasoning tasks</li>
+                <li>Technologies: Python, LLM APIs, vLLM, Ollama, Data Analysis</li>
+              </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">Novel Parameter-Efficient Fine-Tuning Method</h3>
+                <p>Research Contributor, December 2024 - Present</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Investigating novel approaches to PEFT methodologies</li>
+                <li>Technologies: Python, PyTorch, LLM APIs, Deep Learning</li>
+              </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">LLM Anti-Contamination Evaluation Frameworks</h3>
+                <p>Research Contributor, February 2025 - Present</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Developing dynamic, multi-agent based evaluation methodologies for large language models</li>
+                <li>Technologies: Python, PyTorch, vLLM, LLM Benchmarking, Statistical Analysis</li>
+              </ul>
+            </div>
+          </section>
+          
+          {/* Professional Experience */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Professional Experience</h2>
+            
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">Web Content & Digital Marketing Specialist</h3>
+                <p>Darlings Ingredients, September 2024 - December 2024</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Managed digital marketing campaigns and web content strategy</li>
+                <li>Utilized tools including Canva, Figma, Google Analytics, and HubSpot</li>
+                <li>Implemented SEO optimization and UI/UX improvements</li>
+              </ul>
+            </div>
+          </section>
+          
+          {/* Projects */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Technical Projects</h2>
+            
+            <div className="mb-4">
+              <div className="mb-1">
+                <h3 className="font-bold">Personal Website</h3>
+                <p>React-based personal website built with Next.js and Tailwind CSS</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Technologies: React, Next.js, Tailwind CSS, HTML/CSS, Git</li>
+                <li>Implemented responsive design and modern UI components</li>
+                <li>Link: <a href="https://l6cao.github.io" className="text-[#6ba123] hover:text-[#557f1b]">l6cao.github.io</a></li>
+              </ul>
+            </div>
+            
+            <div className="mb-4">
+              <div className="mb-1">
+                <h3 className="font-bold">Pathfinding Visualizer</h3>
+                <p>Interactive pathfinding algorithm visualization tool</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Technologies: React, JavaScript</li>
+                <li>GitHub: <a href="https://github.com/l6cao/pathfinding-visualizer" className="text-[#6ba123] hover:text-[#557f1b]">Repository</a></li>
+              </ul>
+            </div>
+            
+            <div className="mb-4">
+              <div className="mb-1">
+                <h3 className="font-bold">NotiSimplify</h3>
+                <p>Notification text simplification system using LLMs</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Technologies: C#, LLM Integration</li>
+                <li>GitHub: <a href="https://github.com/l6cao/NotiSimplify" className="text-[#6ba123] hover:text-[#557f1b]">Repository</a></li>
+              </ul>
+            </div>
+          </section>
+          
+          {/* Skills */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Skills</h2>
+            
+            <div className="mb-3">
+              <h3 className="font-bold">Programming Languages</h3>
+              <p>Python, JavaScript, C#, C++, R</p>
+            </div>
+            
+            <div className="mb-3">
+              <h3 className="font-bold">LLM & Machine Learning</h3>
+              <p>PyTorch, LLM Deployment, LLM Evaluation, LLM Fine-tuning, Multi-agent Systems, Natural Language Processing</p>
+            </div>
+
+            <div className="mb-3">
+              <h3 className="font-bold">Data Analysis</h3>
+              <p>Matplotlib, NumPy, pandas, Seaborn, Statistical Analysis</p>
+            </div>
+            
+            <div className="mb-3">
+              <h3 className="font-bold">Web Development</h3>
+              <p>React, Next.js, HTML/CSS, Git</p>
+            </div>
+            
+            <div className="mb-3">
+              <h3 className="font-bold">Tools & Technologies</h3>
+              <p>Git, Linux, Docker, Figma, Canva, Google Analytics, HubSpot, LaTeX</p>
+            </div>
+          </section>
+          
+          {/* Achievements */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Notable Achievements</h2>
+            <ul className="list-disc list-inside">
+              <li>Publications in Progress under ACL Rolling Review</li>
+              <li>Ranked 12th in 2023 Canadian Computing Competition Senior Group</li>
+              <li>University of Waterloo President's Scholarship of Distinction</li>
+              <li>Euclid Mathematics Contest Honor Roll (Top 5%)</li>
+              <li>High School Valedictorian</li>
+            </ul>
+          </section>
+          
+          {/* Back to Home link at bottom */}
+          <div className="mt-10 pt-4 border-t border-gray-200">
+            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors">
+              Home
+            </Link>
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
+    </>
+  );
+}```
+
+## public/icons/github.svg
+```svg
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>github [#142]</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+
+</defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#000000">
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+                <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]">
+
+</path>
+            </g>
+        </g>
+    </g>
+</svg>```
+
+## public/icons/linkedin.svg
+```svg
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" id="meteor-icon-kit__solid-linkedin" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.2857 0H1.70893C0.766071 0 0 0.776786 0 1.73036V22.2696C0 23.2232 0.766071 24 1.70893 24H22.2857C23.2286 24 24 23.2232 24 22.2696V1.73036C24 0.776786 23.2286 0 22.2857 0ZM7.25357 20.5714H3.69643V9.11786H7.25893V20.5714H7.25357ZM5.475 7.55357C4.33393 7.55357 3.4125 6.62679 3.4125 5.49107C3.4125 4.35536 4.33393 3.42857 5.475 3.42857C6.61071 3.42857 7.5375 4.35536 7.5375 5.49107C7.5375 6.63214 6.61607 7.55357 5.475 7.55357ZM20.5875 20.5714H17.0304V15C17.0304 13.6714 17.0036 11.9625 15.1821 11.9625C13.3286 11.9625 13.0446 13.4089 13.0446 14.9036V20.5714H9.4875V9.11786H12.9V10.6821H12.9482C13.425 9.78214 14.5875 8.83393 16.3179 8.83393C19.9179 8.83393 20.5875 11.2071 20.5875 14.2929V20.5714Z" fill="#758CA3"/></svg>```
+
+## public/next.svg
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>```
+
+## public/vercel.svg
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>```
+
+## styles/globals.css
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card-container {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .section {
+    @apply min-h-screen flex flex-col justify-center items-center px-4 py-16;
+  }
+  
+  .heading-1 {
+    @apply text-4xl md:text-5xl font-bold text-text-primary;
+  }
+  
+  .heading-2 {
+    @apply text-3xl md:text-4xl font-bold text-text-primary;
+  }
+}
+
+.text-navy {
+  color: #245b20; /* Navy blue color */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes bounce-medium {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+.animate-bounce-medium {
+  animation: bounce-medium 1.5s infinite;
+}
+
+:root {
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --primary-glow: conic-gradient(
+    from 180deg at 50% 50%,
+    #16abff33 0deg,
+    #0885ff33 55deg,
+    #54d6ff33 120deg,
+    #0071ff33 160deg,
+    transparent 360deg
+  );
+  --secondary-glow: radial-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+
+  --tile-start-rgb: 239, 245, 249;
+  --tile-end-rgb: 228, 232, 233;
+  --tile-border: conic-gradient(
+    #00000080,
+    #00000040,
+    #00000030,
+    #00000020,
+    #00000010,
+    #00000010,
+    #00000080
+  );
+
+  --callout-rgb: 238, 240, 241;
+  --callout-border-rgb: 172, 175, 176;
+  --card-rgb: 180, 185, 188;
+  --card-border-rgb: 131, 134, 135;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+
+    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --secondary-glow: linear-gradient(
+      to bottom right,
+      rgba(1, 65, 255, 0),
+      rgba(1, 65, 255, 0),
+      rgba(1, 65, 255, 0.3)
+    );
+
+    --tile-start-rgb: 2, 13, 46;
+    --tile-end-rgb: 2, 5, 19;
+    --tile-border: conic-gradient(
+      #ffffff80,
+      #ffffff40,
+      #ffffff30,
+      #ffffff20,
+      #ffffff10,
+      #ffffff10,
+      #ffffff80
+    );
+
+    --callout-rgb: 20, 20, 20;
+    --callout-border-rgb: 108, 108, 108;
+    --card-rgb: 100, 100, 100;
+    --card-border-rgb: 200, 200, 200;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotateY-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+```
+
+## styles/Home.module.css
+```css
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.description {
+  display: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+  font-size: 0.85rem;
+  max-width: var(--max-width);
+  width: 100%;
+  z-index: 2;
+  font-family: var(--font-mono);
+}
+
+.description a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.description p {
+  position: relative;
+  margin: 0;
+  padding: 1rem;
+  background-color: rgba(var(--callout-rgb), 0.5);
+  border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+  border-radius: var(--border-radius);
+}
+
+.code {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(25%, auto));
+  max-width: var(--max-width);
+  width: 100%;
+}
+
+.card {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 0);
+  border: 1px solid rgba(var(--card-border-rgb), 0);
+  transition: background 200ms, border 200ms;
+}
+
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+.card h2 {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.card p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30ch;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+}
+
+.center::before {
+  background: var(--secondary-glow);
+  border-radius: 50%;
+  width: 480px;
+  height: 360px;
+  margin-left: -400px;
+}
+
+.center::after {
+  background: var(--primary-glow);
+  width: 240px;
+  height: 180px;
+  z-index: -1;
+}
+
+.center::before,
+.center::after {
+  content: "";
+  left: 50%;
+  position: absolute;
+  filter: blur(45px);
+  transform: translateZ(0);
+}
+
+.logo {
+  position: relative;
+}
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .card:hover span {
+    transform: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .content {
+    padding: 4rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 120px;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 1rem 2.5rem;
+  }
+
+  .card h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .center {
+    padding: 8rem 0 6rem;
+  }
+
+  .center::before {
+    transform: none;
+    height: 300px;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .description a {
+    padding: 1rem;
+  }
+
+  .description p,
+  .description div {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+  }
+
+  .description p {
+    align-items: center;
+    inset: 0 0 auto;
+    padding: 2rem 1rem 1.4rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--background-start-rgb), 1),
+      rgba(var(--callout-rgb), 0.5)
+    );
+    background-clip: padding-box;
+    backdrop-filter: blur(24px);
+  }
+
+  .description div {
+    align-items: flex-end;
+    pointer-events: none;
+    inset: auto 0 0;
+    padding: 2rem;
+    height: 200px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(var(--background-end-rgb)) 40%
+    );
+    z-index: 1;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .grid {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .vercelLogo {
+    filter: invert(1);
+  }
+
+  .logo {
+    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+```
+
+## README.md
+```markdown
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+
+## Binary Files
+The following files are binary and not included in the text output:
+- public/favicon.ico
+- public/profile.jpg
