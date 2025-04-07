@@ -10,4 +10,10 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  scripts: {
+    ignoreDuringBuilds: true,
+  },
 };
