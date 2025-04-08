@@ -60,6 +60,7 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
     height: typeof window !== 'undefined' ? window.innerHeight : 0
   });
+  const [isSafari, setIsSafari] = useState(false);
 
   // Handle client-side rendering and window resize
   useEffect(() => {
@@ -71,6 +72,14 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
         height: window.innerHeight
       });
     };
+    
+    // Safari detection
+    const isSafariBrowser = 
+      /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+      (/^((?!chrome|android).)*$/.test(navigator.userAgent) && 
+       navigator.vendor === "Apple Computer, Inc.");
+    
+    setIsSafari(isSafariBrowser);
     
     window.addEventListener('resize', handleResize);
     return () => {
@@ -117,11 +126,21 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
 
   // Card expansion
   const handleCardClick = () => {
-    if (!isExpanded && cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-      setCardRect(rect);
-      setIsExpanded(true);
-      setIsFlipped(true);
+    if (isSafari) {
+      // For Safari, just expand directly without flip
+      if (!isExpanded && cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        setCardRect(rect);
+        setIsExpanded(true);
+      }
+    } else {
+      // For other browsers, flip then expand on second click
+      if (!isExpanded && cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        setCardRect(rect);
+        setIsExpanded(true);
+        setIsFlipped(true);
+      }
     }
   };
 
@@ -280,54 +299,10 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                   className="pointer-events-auto rounded-lg overflow-hidden"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {/* The flipping part */}
-                  <motion.div
-                    className="w-full h-full"
-                    style={{ 
-                      transformStyle: 'preserve-3d',
-                      WebkitTransformStyle: 'preserve-3d',
-                      perspective: '1000px',
-                      WebkitPerspective: '1000px'
-                    }}
-                    animate={{ rotateY: isFlipped ? 180 : 0 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    {/* Front face */}
+                  {isSafari ? (
+                    // Safari version - Simple card without flip
                     <div 
-                      style={{ 
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                      }}
-                      className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-front ${!isFlipped ? 'visible' : ''}`}
-                    >
-                      <div className="relative z-20">
-                        {frontContent}
-                      </div>
-                      
-                      <button
-                        className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
-                                 text-surface/70 hover:text-surface transition-colors z-30"
-                        onClick={handleClose}
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                    
-                    {/* Back face */}
-                    <div 
-                      style={{ 
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden',
-                        transform: 'rotateY(180deg)',
-                        WebkitTransform: 'rotateY(180deg)',
-                      }}
-                      className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-back ${isFlipped ? 'visible' : ''}`}
+                      className="w-full h-full bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
                     >
                       <div className="relative z-20">
                         {backContent}
@@ -341,7 +316,70 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                         <X size={16} />
                       </button>
                     </div>
-                  </motion.div>
+                  ) : (
+                    // Non-Safari version - Flip card
+                    <motion.div
+                      className="w-full h-full"
+                      style={{ 
+                        transformStyle: 'preserve-3d',
+                        WebkitTransformStyle: 'preserve-3d',
+                        perspective: '1000px',
+                        WebkitPerspective: '1000px'
+                      }}
+                      animate={{ rotateY: isFlipped ? 180 : 0 }}
+                      transition={{ duration: 0.8 }}
+                    >
+                      {/* Front face */}
+                      <div 
+                        style={{ 
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                        }}
+                        className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-front ${!isFlipped ? 'visible' : ''}`}
+                      >
+                        <div className="relative z-20">
+                          {frontContent}
+                        </div>
+                        
+                        <button
+                          className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                   text-surface/70 hover:text-surface transition-colors z-30"
+                          onClick={handleClose}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                      
+                      {/* Back face */}
+                      <div 
+                        style={{ 
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                          transform: 'rotateY(180deg)',
+                          WebkitTransform: 'rotateY(180deg)',
+                        }}
+                        className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-back ${isFlipped ? 'visible' : ''}`}
+                      >
+                        <div className="relative z-20">
+                          {backContent}
+                        </div>
+                        
+                        <button
+                          className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                   text-surface/70 hover:text-surface transition-colors z-30"
+                          onClick={handleClose}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
                 </motion.div>
               </div>
             </div>

@@ -52,7 +52,7 @@ export default function Home() {
           >
             {/* Profile Image - Now on the left, smaller on mobile */}
             <motion.div
-              className="relative mx-auto md:mx-0 w-3/4 md:w-full"
+              className="relative mx-auto md:mx-0 w-3/4 md:w-full mt-6 md:mt-0"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -76,11 +76,8 @@ export default function Home() {
                 Linbo Cao
                 <br />
                 <span className="text-accent-green font-accent whitespace-normal md:whitespace-nowrap">AI Researcher</span>
-                <span className="md:hidden"> </span>
-                <span className="hidden md:inline">
-                  <br />
-                </span>
-                & Developer
+                <br className="block" />
+                <span className="block">&amp; Developer</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-surface/80">
                 <span className="whitespace-normal md:whitespace-nowrap">Mathematics Undergraduate at UWaterloo (2B Term)</span>
