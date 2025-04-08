@@ -40,19 +40,19 @@ export default function Home() {
       <Section
         id="home"
         fullHeight
-        className="pr-20"
+        className="pr-4 sm:pr-8 md:pr-20"
         isCover={true}
       >
-        <div className="max-w-5xl mx-auto w-full pr-12">
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <motion.div
-            className="grid md:grid-cols-2 gap-12 items-center"
+            className="grid md:grid-cols-2 gap-6 md:gap-12 items-center"
             initial="initial"
             animate="animate"
             variants={fadeIn}
           >
-            {/* Profile Image - Now on the left */}
+            {/* Profile Image - Now on the left, smaller on mobile */}
             <motion.div
-              className="relative"
+              className="relative mx-auto md:mx-0 w-3/4 md:w-full"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -63,30 +63,33 @@ export default function Home() {
 
                 {/* The image */}
                 <img
-                  src="/profile.jpg" // Assuming profile.jpg is the correct image
+                  src="/profile.jpg"
                   alt="Linbo Cao"
                   className="w-full h-full object-cover"
                 />
               </div>
             </motion.div>
 
-            {/* Text Content - Now on the right */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-title tracking-tighter text-surface">
+            {/* Text Content - Now on the right, with responsive text breaks */}
+            <div className="space-y-4 md:space-y-6 text-center md:text-left">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-title tracking-tighter text-surface">
                 Linbo Cao
                 <br />
-                <span className="text-accent-green font-accent whitespace-nowrap">AI Researcher</span>
-                <br />
+                <span className="text-accent-green font-accent whitespace-normal md:whitespace-nowrap">AI Researcher</span>
+                <span className="md:hidden"> </span>
+                <span className="hidden md:inline">
+                  <br />
+                </span>
                 & Developer
               </h1>
-              <p className="text-lg md:text-xl text-surface/80">
-                <span className="whitespace-nowrap">Mathematics Undergraduate at UWaterloo (2B Term)</span>
+              <p className="text-base sm:text-lg md:text-xl text-surface/80">
+                <span className="whitespace-normal md:whitespace-nowrap">Mathematics Undergraduate at UWaterloo (2B Term)</span>
                 <br />
                 LLM Addict
                 <br />
                 Focusing on LLM Evaluation, PEFT, and Alignment.
               </p>
-              <div className="flex gap-4">
+              <div className="flex justify-center md:justify-start gap-4">
                 <Button
                   href="/cv"
                   variant="primary"
@@ -106,8 +109,8 @@ export default function Home() {
       </Section>
 
       {/* About Section */}
-      <Section id="about" className="pr-20" darkBg>
-        <div className="max-w-5xl mx-auto w-full pr-12">
+      <Section id="about" className="pr-4 sm:pr-8 md:pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-8">
             About <span className="text-accent-green font-accent">Me</span>
           </h2>
@@ -243,8 +246,8 @@ export default function Home() {
       </Section>
 
       {/* Experience Section */}
-      <Section id="experience" className="pr-20" darkBg>
-        <div className="max-w-5xl mx-auto w-full pr-12">
+      <Section id="experience" className="pr-4 sm:pr-8 md:pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
             Work <span className="text-accent-green font-accent">Experience</span>
           </h2>
@@ -265,8 +268,8 @@ export default function Home() {
       </Section>
 
       {/* Research Section */}
-      <Section id="research" className="pr-20" darkBg>
-        <div className="max-w-5xl mx-auto w-full pr-12">
+      <Section id="research" className="pr-4 sm:pr-8 md:pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
             Research <span className="text-accent-green font-accent">Focus</span>
           </h2>
@@ -444,8 +447,8 @@ export default function Home() {
       </Section>
 
       {/* Projects Section */}
-      <Section id="projects" className="pr-20" darkBg>
-        <div className="max-w-5xl mx-auto w-full pr-12">
+      <Section id="projects" className="pr-4 sm:pr-8 md:pr-20" darkBg>
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-8">
             My <span className="text-accent-green font-accent">Projects</span>
           </h2>
@@ -591,8 +594,8 @@ export default function Home() {
       </Section>
 
       {/* Contact Section */}
-      <Section id="contact" className="pr-20">
-        <div className="max-w-5xl mx-auto w-full pr-12">
+      <Section id="contact" className="pr-4 sm:pr-8 md:pr-20">
+        <div className="max-w-5xl mx-auto w-full pr-4 sm:pr-8 md:pr-12">
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
             Get in <span className="text-accent-green font-accent">Touch</span>
           </h2>

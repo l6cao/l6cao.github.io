@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { ArrowLeft } from 'react-feather';
 import Footer from '../components/layout/Footer';
+import { motion } from 'framer-motion';
 
 export default function CV() {
   return (
@@ -11,18 +12,36 @@ export default function CV() {
         <meta name="description" content="Professional CV of Linbo Cao - LLM Research & Development" />
       </Head>
       
+      {/* Page transition overlay - fades from dark to white */}
+      <motion.div 
+        className="fixed inset-0 bg-primary z-50 pointer-events-none"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      />
+      
       <main className="pt-8 pb-16 bg-white text-black min-h-screen">
-        <div className="max-w-4xl mx-auto px-4">
+        <motion.div 
+          className="max-w-4xl mx-auto px-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           {/* Back Button */}
           <div className="mb-6">
-            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors">
+            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors flex items-center">
               <ArrowLeft size={20} className="mr-2" />
               <span>Back to Home</span>
             </Link>
           </div>
           
           {/* CV Header */}
-          <div className="mb-8">
+          <motion.div 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <h1 className="text-3xl font-bold mb-2">Curriculum Vitae</h1>
             <h2 className="text-xl text-gray-700">Linbo Cao</h2>
             
@@ -40,10 +59,15 @@ export default function CV() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Professional Summary */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Professional Summary</h2>
             <ul className="list-disc list-inside space-y-1">
               <li>Mathematics undergraduate at the University of Waterloo with a focus on AI research and development.</li>
@@ -52,10 +76,15 @@ export default function CV() {
               <li>Quick learner capable of managing tasks across diverse fields, including IT maintenance and UI/UX design.</li>
               <li>Demonstrated excellence in competitive programming and mathematics competitions.</li>
             </ul>
-          </section>
+          </motion.section>
           
           {/* Education */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Education</h2>
             <div className="mb-4">
               <div className="mb-1">
@@ -78,10 +107,15 @@ export default function CV() {
                 <li>Ranked top 5%, Honor Roll in Euclid Mathematics Contest</li>
               </ul>
             </div>
-          </section>
+          </motion.section>
           
           {/* Research Experience */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Research Experience</h2>
             
             <div className="mb-6">
@@ -129,10 +163,15 @@ export default function CV() {
                 <li>Technologies: Python, PyTorch, vLLM, LLM Benchmarking, Statistical Analysis</li>
               </ul>
             </div>
-          </section>
+          </motion.section>
           
           {/* Professional Experience */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Professional Experience</h2>
             
             <div className="mb-6">
@@ -146,10 +185,15 @@ export default function CV() {
                 <li>Implemented SEO optimization and UI/UX improvements</li>
               </ul>
             </div>
-          </section>
+          </motion.section>
           
           {/* Projects */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Technical Projects</h2>
             
             <div className="mb-4">
@@ -185,10 +229,15 @@ export default function CV() {
                 <li>GitHub: <a href="https://github.com/l6cao/NotiSimplify" className="text-[#6ba123] hover:text-[#557f1b]">Repository</a></li>
               </ul>
             </div>
-          </section>
+          </motion.section>
           
           {/* Skills */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.0 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Skills</h2>
             
             <div className="mb-3">
@@ -215,10 +264,15 @@ export default function CV() {
               <h3 className="font-bold">Tools & Technologies</h3>
               <p>Git, Linux, Docker, Figma, Canva, Google Analytics, HubSpot, LaTeX</p>
             </div>
-          </section>
+          </motion.section>
           
           {/* Achievements */}
-          <section className="mb-8">
+          <motion.section 
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.1 }}
+          >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Notable Achievements</h2>
             <ul className="list-disc list-inside">
               <li>Publications in Progress under ACL Rolling Review</li>
@@ -227,15 +281,20 @@ export default function CV() {
               <li>Euclid Mathematics Contest Honor Roll (Top 5%)</li>
               <li>High School Valedictorian</li>
             </ul>
-          </section>
+          </motion.section>
           
           {/* Back to Home link at bottom */}
-          <div className="mt-10 pt-4 border-t border-gray-200">
+          <motion.div 
+            className="mt-10 pt-4 border-t border-gray-200"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+          >
             <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors">
               Home
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
       
       <Footer />

@@ -128,10 +128,13 @@ export default function Navigation() {
     { name: 'Chat', type: 'coming-soon', message: 'Chat feature coming soon! Tune in for updates :D' },
     { name: 'More', type: 'coming-soon', message: 'More features yet to implement. Tune in for updates :D' },
     { name: 'Contact', type: 'scroll', to: 'contact' },
+    // Commented out language toggle for future implementation
+    /*
     { 
       name: language === 'en' ? '中文' : 'English', 
       type: 'language-toggle',
     }
+    */
   ];
 
   return (

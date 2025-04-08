@@ -3,6 +3,51 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'react-feather';
 import { createPortal } from 'react-dom';
 
+// Add this CSS-only fix for Firefox and Safari at the top of your component
+const browserSpecificStyles = `
+  /* Firefox-specific fixes */
+  @-moz-document url-prefix() {
+    .flip-card-front {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    .flip-card-front.visible {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .flip-card-back {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    .flip-card-back.visible {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
+  
+  /* Safari-specific fixes */
+  @media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+      .flip-card-front {
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+      .flip-card-front.visible {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      .flip-card-back {
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+      .flip-card-back.visible {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+    }
+  }
+`;
+
 export default function FlipCard({ frontContent, backContent, className = '' }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -162,6 +207,9 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
   // Normal card - keep it in DOM even when expanded but make it invisible
   return (
     <>
+      {/* Browser-specific styles */}
+      <style>{browserSpecificStyles}</style>
+      
       <motion.div 
         className={`relative w-full h-full min-h-[300px] ${isExpanded ? 'invisible' : 'visible'}`}
         ref={cardRef}
@@ -235,7 +283,12 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                   {/* The flipping part */}
                   <motion.div
                     className="w-full h-full"
-                    style={{ transformStyle: 'preserve-3d' }}
+                    style={{ 
+                      transformStyle: 'preserve-3d',
+                      WebkitTransformStyle: 'preserve-3d',
+                      perspective: '1000px',
+                      WebkitPerspective: '1000px'
+                    }}
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
                     transition={{ duration: 0.8 }}
                   >
@@ -248,7 +301,7 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                         backfaceVisibility: 'hidden',
                         WebkitBackfaceVisibility: 'hidden',
                       }}
-                      className="bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                      className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-front ${!isFlipped ? 'visible' : ''}`}
                     >
                       <div className="relative z-20">
                         {frontContent}
@@ -272,8 +325,9 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                         backfaceVisibility: 'hidden',
                         WebkitBackfaceVisibility: 'hidden',
                         transform: 'rotateY(180deg)',
+                        WebkitTransform: 'rotateY(180deg)',
                       }}
-                      className="bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                      className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-back ${isFlipped ? 'visible' : ''}`}
                     >
                       <div className="relative z-20">
                         {backContent}
