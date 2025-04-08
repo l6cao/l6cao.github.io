@@ -1,0 +1,198 @@
+for your reference, this is how my linked in looks now
+
+Linbo Cao 
+ (He/Him)
+UWaterloo Mathematics | LLM Research & Development | UX/UI Developer
+
+University of Waterloo
+
+
+
+About
+Mathematics undergraduate at the University of Waterloo (2B term), with an extreme passion for Large Language Models and AI systems. Self-driven learner actively exploring the practical applications and technical implementations of LLMs.
+
+Currently fortunate to be learning through collaborative research projects while balancing academic studies. Particularly interested in LLM system development and implementation challenges.
+
+Experience spans from LLM development to UX/UI work, always eager to learn and contribute. Open to opportunities where I can continue learning and contributing in AI/ML development.
+
+Experience
+
+Darling Ingredients logo
+
+Content Creation & Web Development & Digital Marketing Intern
+Darling Ingredients · Co-opDarling Ingredients · Co-op
+Sep 2024 - Dec 2024 · 4 mosSep 2024 to Dec 2024 · 4 mos
+RemoteRemote
+• Experienced digital marketing strategies through technical solutions using Google Analytics and HubSpot
+• Developed web content optimization systems focusing on SEO and user engagement metrics
+• Created and maintained digital assets while adhering to UI/UX principles and web optimization guidelines
+• Collaborated with team to integrate technical marketing solutions with content delivery systems
+• Technologies: Google Analytics, HubSpot, SEO frameworks, Web optimization tools, Canva, Content Management Systems• Experienced digital marketing strategies through technical solutions using Google Analytics and HubSpot • Developed web content optimization systems focusing on SEO and user engagement metrics • Created and maintained digital assets while adhering to UI/UX principles and web optimization guidelines • Collaborated with team to integrate technical marketing solutions with content delivery systems • Technologies: Google Analytics, HubSpot, SEO frameworks, Web optimization tools, Canva, Content Management Systems
+Figma and +3 skills
+EducationEducation
+
+University of Waterloo
+University of Waterloo
+Bachelor of Mathematics, Co-operative ProgramBachelor of Mathematics, Co-operative Program
+2023 - 20282023 - 2028
+ProjectsProjects
+LLM Privacy and Safety Research
+LLM Privacy and Safety Research
+Aug 2024 - PresentAug 2024 - Present
+• Investigating privacy implications in LLM reasoning frameworks
+• Implementing testing environments for LLM security analysis
+• Technologies: Python, LLM APIs, vLLM, Docker, Git, NumPy, pandas, Seaborn, LaTeX
+• Preprint available on arXiv https://arxiv.org/abs/2409.13979• Investigating privacy implications in LLM reasoning frameworks • Implementing testing environments for LLM security analysis • Technologies: Python, LLM APIs, vLLM, Docker, Git, NumPy, pandas, Seaborn, LaTeX • Preprint available on arXiv https://arxiv.org/abs/2409.13979
+Python (Programming Language), Natural Language Processing (NLP) and +6 skills
+Path Visualization System
+Path Visualization System
+May 2024 - May 2024May 2024 - May 2024
+• Student project; Developed interactive web application demonstrating multiple pathfinding algorithms (A*, Dijkstra's, BFS)
+• Implemented data structures and algorithms with visual representation for educational purposes
+• Created user-interactive features for obstacle placement and path visualization
+• Technologies: React, JavaScript, Data Structures & Algorithms, Git
+
+Available at https://github.com/l6cao/pathfinding-visualizer• Student project; Developed interactive web application demonstrating multiple pathfinding algorithms (A*, Dijkstra's, BFS) • Implemented data structures and algorithms with visual representation for educational purposes • Created user-interactive features for obstacle placement and path visualization • Technologies: React, JavaScript, Data Structures & Algorithms, Git Available at https://github.com/l6cao/pathfinding-visualizer
+React.js, JavaScript and +3 skills
+Show all 3 projects
+SkillsSkills
+Python (Programming Language)
+Python (Programming Language)
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Machine Learning
+Machine Learning
+Show all 26 skills
+PublicationsPublications
+Role-Play Paradox in Large Language Models: Reasoning Performance Gains and Ethical Dilemmas
+Role-Play Paradox in Large Language Models: Reasoning Performance Gains and Ethical Dilemmas
+Show publication
+LanguagesLanguages
+Chinese
+Chinese
+Native or bilingual proficiencyNative or bilingual proficiency
+English
+English
+Native or bilingual proficiency
+
+
+LLM Privacy and Safety Research
+LLM Privacy and Safety Research
+Aug 2024 - PresentAug 2024 - Present
+• Investigating privacy implications in LLM reasoning frameworks
+• Implementing testing environments for LLM security analysis
+• Technologies: Python, LLM APIs, vLLM, Docker, Git, NumPy, pandas, Seaborn, LaTeX
+• Preprint available on arXiv https://arxiv.org/abs/2409.13979
+• Investigating privacy implications in LLM reasoning frameworks • Implementing testing environments for LLM security analysis • Technologies: Python, LLM APIs, vLLM, Docker, Git, NumPy, pandas, Seaborn, LaTeX • Preprint available on arXiv https://arxiv.org/abs/2409.13979
+Skills: Python (Programming Language) · Natural Language Processing (NLP) · Large Language Models (LLM) · LaTeX · Seaborn · NumPy · Pandas · Jupyter
+Skills: Python (Programming Language) · Natural Language Processing (NLP) · Large Language Models (LLM) · LaTeX · Seaborn · NumPy · Pandas · Jupyter
+Path Visualization System
+Path Visualization System
+May 2024 - May 2024May 2024 - May 2024
+• Student project; Developed interactive web application demonstrating multiple pathfinding algorithms (A*, Dijkstra's, BFS)
+• Implemented data structures and algorithms with visual representation for educational purposes
+• Created user-interactive features for obstacle placement and path visualization
+• Technologies: React, JavaScript, Data Structures & Algorithms, Git
+
+Available at https://github.com/l6cao/pathfinding-visualizer
+• Student project; Developed interactive web application demonstrating multiple pathfinding algorithms (A*, Dijkstra's, BFS) • Implemented data structures and algorithms with visual representation for educational purposes • Created user-interactive features for obstacle placement and path visualization • Technologies: React, JavaScript, Data Structures & Algorithms, Git Available at https://github.com/l6cao/pathfinding-visualizer
+Skills: React.js · JavaScript · Data Structures · Algorithms · Git
+Skills: React.js · JavaScript · Data Structures · Algorithms · Git
+NotiSimplify - Notification Text Simplification
+NotiSimplify - Notification Text Simplification
+Apr 2024 - Apr 2024Apr 2024 - Apr 2024
+• Student project; Developed text simplification system for notifications using LLM prompting
+• Implemented basic input/output interface for notification text processing
+• Designed system prompts for effective notification summarization
+• Technologies: C#, LLM Integration, UI Design, Git
+
+Available at https://github.com/l6cao/NotiSimplify
+• Student project; Developed text simplification system for notifications using LLM prompting • Implemented basic input/output interface for notification text processing • Designed system prompts for effective notification summarization • Technologies: C#, LLM Integration, UI Design, Git Available at https://github.com/l6cao/NotiSimplify
+Skills: C# · Large Language Models (LLM) · UI
+
+
+Python (Programming Language)
+Python (Programming Language)
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Machine Learning
+Machine Learning
+Natural Language Processing (NLP)
+Natural Language Processing (NLP)
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Large Language Models (LLM)
+Large Language Models (LLM)
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+NotiSimplify - Notification Text SimplificationNotiSimplify - Notification Text Simplification
+LaTeX
+LaTeX
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+C#
+C#
+NotiSimplify - Notification Text SimplificationNotiSimplify - Notification Text Simplification
+C++
+C++
+JavaScript
+JavaScript
+Path Visualization SystemPath Visualization System
+React.js
+React.js
+Path Visualization SystemPath Visualization System
+Figma
+Figma
+Company logo
+Content Creation & Web Development & Digital Marketing Intern at Darling IngredientsContent Creation & Web Development & Digital Marketing Intern at Darling Ingredients
+UI/UX
+UI/UX
+Company logo
+Content Creation & Web Development & Digital Marketing Intern at Darling IngredientsContent Creation & Web Development & Digital Marketing Intern at Darling Ingredients
+UI
+UI
+NotiSimplify - Notification Text SimplificationNotiSimplify - Notification Text Simplification
+Search Engine Optimization (SEO)
+Search Engine Optimization (SEO)
+Company logo
+Content Creation & Web Development & Digital Marketing Intern at Darling IngredientsContent Creation & Web Development & Digital Marketing Intern at Darling Ingredients
+Data Structures
+Data Structures
+Path Visualization SystemPath Visualization System
+GitHub
+GitHub
+Git
+Git
+Path Visualization SystemPath Visualization System
+Statistics
+Statistics
+R (Programming Language)
+R (Programming Language)
+Seaborn
+Seaborn
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+NumPy
+NumPy
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Pandas
+Pandas
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Jupyter
+Jupyter
+LLM Privacy and Safety ResearchLLM Privacy and Safety Research
+Algorithms
+Algorithms
+Path Visualization SystemPath Visualization System
+Canva
+Canva
+Company logo
+Content Creation & Web Development & Digital Marketing Intern at Darling IngredientsContent Creation & Web Development & Digital Marketing Intern at Darling Ingredients
+C (Programming Language)
+C (Programming Language)
+Content Development
+Content Development
+Company logo
+Content Creation & Web Development & Digital Marketing Intern at Darling Ingredients
+
+even this is a bit outdated, i recently participated research using peft, and learnt a lot
+
+
+4. LLM integration
+how about ghpages call the chinese server to obtain an apikey real time and then use the api key to call openai? is this doable? or do we have to switch to other solutions?
+
+No implemetaion now, we need to do a high level careful discusion first

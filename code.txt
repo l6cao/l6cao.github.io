@@ -1,59 +1,8 @@
-# Project Structure
-
+﻿# Project Structure
 .
-├── codebase.sh
-├── code.txt
-├── components
-│   ├── Header.js
-│   ├── layout
-│   │   ├── Card.js
-│   │   ├── Footer.js
-│   │   ├── GradientBackground.js
-│   │   ├── Navigation.js
-│   │   ├── RightNavigation.js
-│   │   └── Section.js
-│   ├── ui
-│   │   ├── Button.js
-│   │   ├── FlipCard.js
-│   │   ├── IconButton.js
-│   │   ├── Icons.js
-│   │   └── ProjectCard.js
-│   └── utils
-│       └── ScrollProvider.js
-├── jsconfig.json
-├── next.config.js
-├── next.config.mjs
-├── package.json
-├── package-lock.json
-├── pages
-│   ├── api
-│   │   └── hello.js
-│   ├── _app.js
-│   ├── cv.js
-│   ├── _document.js
-│   └── index.js
-├── postcss.config.js
-├── public
-│   ├── favicon.ico
-│   ├── icons
-│   │   ├── github.svg
-│   │   └── linkedin.svg
-│   ├── next.svg
-│   ├── profile_1.jpg
-│   ├── profile.jpg
-│   └── vercel.svg
-├── README.md
-├── styles
-│   ├── globals.css
-│   └── Home.module.css
-└── tailwind.config.js
-
-10 directories, 37 files
-
 # File Contents
-
 ## components/Header.js
-```javascript
+`javascript
 // components/Header.js
 export default function Header() {
   return (
@@ -62,10 +11,10 @@ export default function Header() {
     </header>
   );
 }
-```
 
+`
 ## components/layout/Card.js
-```javascript
+`javascript
 import { motion } from 'framer-motion';
 
 export default function Card({ children, className = '', animate = true }) {
@@ -89,10 +38,11 @@ export default function Card({ children, className = '', animate = true }) {
     </motion.div>
   );
 }
-```
+
+`
 
 ## components/layout/Footer.js
-```javascript
+`javascript
 export default function Footer() {
   return (
     <footer className="bg-primary py-8 border-t border-accent-green/10">
@@ -103,10 +53,11 @@ export default function Footer() {
       </div>
     </footer>
   );
-} ```
+} 
+`
 
 ## components/layout/GradientBackground.js
-```javascript
+`javascript
 import { motion } from 'framer-motion';
 
 export default function GradientBackground() {
@@ -130,10 +81,11 @@ export default function GradientBackground() {
       />
     </div>
   );
-} ```
+} 
+`
 
 ## components/layout/Navigation.js
-```javascript
+`javascript
 import { useState, useEffect } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -143,6 +95,7 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [language, setLanguage] = useState('en');
 
   // Handle scroll effect
   useEffect(() => {
@@ -152,6 +105,11 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Function to toggle language
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
+  };
 
   // Sections within the home page
   const homeSubItems = [
@@ -169,7 +127,11 @@ export default function Navigation() {
     { name: 'CV', type: 'link', path: '/cv' },
     { name: 'Chat', type: 'coming-soon', message: 'Chat feature coming soon! Tune in for updates :D' },
     { name: 'More', type: 'coming-soon', message: 'More features yet to implement. Tune in for updates :D' },
-    { name: 'Contact', type: 'scroll', to: 'contact' }
+    { name: 'Contact', type: 'scroll', to: 'contact' },
+    { 
+      name: language === 'en' ? '中文' : 'English', 
+      type: 'language-toggle',
+    }
   ];
 
   return (
@@ -195,9 +157,9 @@ export default function Navigation() {
           </ScrollLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <div key={item.name} className="relative group">
+              <div key={item.name} className="relative group flex items-center">
                 {item.type === 'dropdown' ? (
                   <div 
                     className="
@@ -268,7 +230,7 @@ export default function Navigation() {
                     className="
                       text-surface hover:text-accent-green
                       transition-colors duration-300
-                      cursor-pointer text-sm
+                      cursor-pointer text-sm flex items-center
                     "
                   >
                     {item.name}
@@ -320,13 +282,24 @@ export default function Navigation() {
                       )}
                     </AnimatePresence>
                   </div>
+                ) : item.type === 'language-toggle' ? (
+                  <div
+                    className="
+                      text-surface hover:text-accent-green
+                      transition-colors duration-300
+                      cursor-pointer text-sm flex items-center
+                    "
+                    onClick={toggleLanguage}
+                  >
+                    {item.name}
+                  </div>
                 ) : (
                   <Link
                     href={item.path}
                     className="
                       text-surface hover:text-accent-green
                       transition-colors duration-300
-                      cursor-pointer text-sm
+                      cursor-pointer text-sm flex items-center
                     "
                   >
                     {item.name}
@@ -438,6 +411,18 @@ export default function Navigation() {
                         </div>
                       )}
                     </>
+                  ) : item.type === 'language-toggle' ? (
+                    <div
+                      className="
+                        block px-3 py-2
+                        text-surface hover:text-accent-green
+                        transition-colors duration-300
+                        cursor-pointer text-sm
+                      "
+                      onClick={toggleLanguage}
+                    >
+                      {item.name}
+                    </div>
                   ) : (
                     <Link
                       href={item.path}
@@ -461,10 +446,11 @@ export default function Navigation() {
     </motion.nav>
   );
 }
-```
+
+`
 
 ## components/layout/RightNavigation.js
-```javascript
+`javascript
 import { useState, useEffect } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -593,10 +579,11 @@ export default function RightNavigation() {
       </div>
     </motion.div>
   );
-} ```
+} 
+`
 
 ## components/layout/Section.js
-```javascript
+`javascript
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useNonLinearScroll } from '../utils/ScrollProvider';
@@ -713,10 +700,10 @@ export default function Section({
     </motion.section>
   );
 }
-```
 
+`
 ## components/ui/Button.js
-```javascript
+`javascript
 import { motion } from 'framer-motion';
 import { Link as ScrollLink } from 'react-scroll';
 
@@ -820,10 +807,11 @@ export default function Button({
     </motion.div>
   );
 }
-```
+
+`
 
 ## components/ui/FlipCard.js
-```javascript
+`javascript
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'react-feather';
@@ -1123,10 +1111,11 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
       )}
     </>
   );
-}```
+}
+`
 
 ## components/ui/IconButton.js
-```javascript
+`javascript
 import { motion } from 'framer-motion';
 
 export default function IconButton({
@@ -1156,14 +1145,16 @@ export default function IconButton({
       {icon}
     </motion.span>
   );
-} ```
+} 
+`
 
 ## components/ui/Icons.js
-```javascript
-```
+`javascript
+
+`
 
 ## components/ui/ProjectCard.js
-```javascript
+`javascript
 import FlipCard from './FlipCard';
 import Button from './Button';
 
@@ -1242,10 +1233,10 @@ export default function ProjectCard({
       className={className}
     />
   );
-} ```
-
+} 
+`
 ## components/utils/ScrollProvider.js
-```javascript
+`javascript
 import { useEffect } from 'react';
 import { useSpring, useScroll, useTransform } from 'framer-motion';
 
@@ -1263,10 +1254,10 @@ export function useNonLinearScroll(targetRef) {
   });
 
   return smoothProgress;
-} ```
-
+} 
+`
 ## jsconfig.json
-```json
+`json
 {
   "compilerOptions": {
     "paths": {
@@ -1274,10 +1265,11 @@ export function useNonLinearScroll(targetRef) {
     }
   }
 }
-```
+
+`
 
 ## next.config.js
-```javascript
+`javascript
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -1290,21 +1282,29 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  scripts: {
+    ignoreDuringBuilds: true,
+  },
 };
-```
+
+`
 
 ## next.config.mjs
-```javascript
+`javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
 };
 
 export default nextConfig;
-```
+
+`
 
 ## package.json
-```json
+`json
 {
   "name": "my-website",
   "version": "0.1.0",
@@ -1339,20 +1339,22 @@ export default nextConfig;
     "tailwindcss": "^3.4.3"
   }
 }
-```
+
+`
 
 ## postcss.config.js
-```javascript
+`javascript
 module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
 }
-```
+
+`
 
 ## tailwind.config.js
-```javascript
+`javascript
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -1404,19 +1406,20 @@ module.exports = {
   },
   plugins: [],
 }
-```
 
+`
 ## pages/api/hello.js
-```javascript
+`javascript
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default function handler(req, res) {
   res.status(200).json({ name: "John Doe" });
 }
-```
+
+`
 
 ## pages/_app.js
-```javascript
+`javascript
 import "@/styles/globals.css";
 import { Chakra_Petch } from 'next/font/google';
 
@@ -1434,10 +1437,11 @@ export default function App({ Component, pageProps }) {
     </main>
   );
 }
-```
+
+`
 
 ## pages/_document.js
-```javascript
+`javascript
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -1451,10 +1455,11 @@ export default function Document() {
     </Html>
   );
 }
-```
+
+`
 
 ## pages/index.js
-```javascript
+`javascript
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -2130,10 +2135,11 @@ export default function Home() {
       <Footer />
     </>
   );
-}```
+}
+`
 
 ## pages/cv.js
-```javascript
+`javascript
 import Head from 'next/head';
 import Link from 'next/link';
 import { ArrowLeft } from 'react-feather';
@@ -2377,10 +2383,10 @@ export default function CV() {
       <Footer />
     </>
   );
-}```
-
+}
+`
 ## public/icons/github.svg
-```svg
+`svg
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg width="800px" height="800px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -2399,23 +2405,26 @@ export default function CV() {
             </g>
         </g>
     </g>
-</svg>```
+</svg>
+`
 
 ## public/icons/linkedin.svg
-```svg
+`svg
 <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 24 24" id="meteor-icon-kit__solid-linkedin" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.2857 0H1.70893C0.766071 0 0 0.776786 0 1.73036V22.2696C0 23.2232 0.766071 24 1.70893 24H22.2857C23.2286 24 24 23.2232 24 22.2696V1.73036C24 0.776786 23.2286 0 22.2857 0ZM7.25357 20.5714H3.69643V9.11786H7.25893V20.5714H7.25357ZM5.475 7.55357C4.33393 7.55357 3.4125 6.62679 3.4125 5.49107C3.4125 4.35536 4.33393 3.42857 5.475 3.42857C6.61071 3.42857 7.5375 4.35536 7.5375 5.49107C7.5375 6.63214 6.61607 7.55357 5.475 7.55357ZM20.5875 20.5714H17.0304V15C17.0304 13.6714 17.0036 11.9625 15.1821 11.9625C13.3286 11.9625 13.0446 13.4089 13.0446 14.9036V20.5714H9.4875V9.11786H12.9V10.6821H12.9482C13.425 9.78214 14.5875 8.83393 16.3179 8.83393C19.9179 8.83393 20.5875 11.2071 20.5875 14.2929V20.5714Z" fill="#758CA3"/></svg>```
+<svg width="800px" height="800px" viewBox="0 0 24 24" id="meteor-icon-kit__solid-linkedin" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.2857 0H1.70893C0.766071 0 0 0.776786 0 1.73036V22.2696C0 23.2232 0.766071 24 1.70893 24H22.2857C23.2286 24 24 23.2232 24 22.2696V1.73036C24 0.776786 23.2286 0 22.2857 0ZM7.25357 20.5714H3.69643V9.11786H7.25893V20.5714H7.25357ZM5.475 7.55357C4.33393 7.55357 3.4125 6.62679 3.4125 5.49107C3.4125 4.35536 4.33393 3.42857 5.475 3.42857C6.61071 3.42857 7.5375 4.35536 7.5375 5.49107C7.5375 6.63214 6.61607 7.55357 5.475 7.55357ZM20.5875 20.5714H17.0304V15C17.0304 13.6714 17.0036 11.9625 15.1821 11.9625C13.3286 11.9625 13.0446 13.4089 13.0446 14.9036V20.5714H9.4875V9.11786H12.9V10.6821H12.9482C13.425 9.78214 14.5875 8.83393 16.3179 8.83393C19.9179 8.83393 20.5875 11.2071 20.5875 14.2929V20.5714Z" fill="#758CA3"/></svg>
+`
 
 ## public/next.svg
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>```
+`svg
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+`
 
 ## public/vercel.svg
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>```
-
+`svg
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>
+`
 ## styles/globals.css
-```css
+`css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -2610,10 +2619,11 @@ a {
   }
 }
 
-```
+
+`
 
 ## styles/Home.module.css
-```css
+`css
 .main {
   display: flex;
   flex-direction: column;
@@ -2843,10 +2853,10 @@ a {
     transform: rotate(0deg);
   }
 }
-```
 
+`
 ## README.md
-```markdown
+`markdown
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -2887,8 +2897,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-```
 
+`
 ## Binary Files
 The following files are binary and not included in the text output:
 - public/favicon.ico

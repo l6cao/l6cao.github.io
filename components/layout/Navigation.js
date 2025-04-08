@@ -7,6 +7,7 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [language, setLanguage] = useState('en');
 
   // Handle scroll effect
   useEffect(() => {
@@ -16,6 +17,11 @@ export default function Navigation() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Function to toggle language
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
+  };
 
   // Sections within the home page
   const homeSubItems = [
@@ -33,7 +39,14 @@ export default function Navigation() {
     { name: 'CV', type: 'link', path: '/cv' },
     { name: 'Chat', type: 'coming-soon', message: 'Chat feature coming soon! Tune in for updates :D' },
     { name: 'More', type: 'coming-soon', message: 'More features yet to implement. Tune in for updates :D' },
-    { name: 'Contact', type: 'scroll', to: 'contact' }
+    { name: 'Contact', type: 'scroll', to: 'contact' },
+    // Commented out language toggle for future implementation
+    /*
+    { 
+      name: language === 'en' ? '中文' : 'English', 
+      type: 'language-toggle',
+    }
+    */
   ];
 
   return (
@@ -59,9 +72,9 @@ export default function Navigation() {
           </ScrollLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <div key={item.name} className="relative group">
+              <div key={item.name} className="relative group flex items-center">
                 {item.type === 'dropdown' ? (
                   <div 
                     className="
@@ -132,7 +145,7 @@ export default function Navigation() {
                     className="
                       text-surface hover:text-accent-green
                       transition-colors duration-300
-                      cursor-pointer text-sm
+                      cursor-pointer text-sm flex items-center
                     "
                   >
                     {item.name}
@@ -184,13 +197,24 @@ export default function Navigation() {
                       )}
                     </AnimatePresence>
                   </div>
+                ) : item.type === 'language-toggle' ? (
+                  <div
+                    className="
+                      text-surface hover:text-accent-green
+                      transition-colors duration-300
+                      cursor-pointer text-sm flex items-center
+                    "
+                    onClick={toggleLanguage}
+                  >
+                    {item.name}
+                  </div>
                 ) : (
                   <Link
                     href={item.path}
                     className="
                       text-surface hover:text-accent-green
                       transition-colors duration-300
-                      cursor-pointer text-sm
+                      cursor-pointer text-sm flex items-center
                     "
                   >
                     {item.name}
@@ -302,6 +326,18 @@ export default function Navigation() {
                         </div>
                       )}
                     </>
+                  ) : item.type === 'language-toggle' ? (
+                    <div
+                      className="
+                        block px-3 py-2
+                        text-surface hover:text-accent-green
+                        transition-colors duration-300
+                        cursor-pointer text-sm
+                      "
+                      onClick={toggleLanguage}
+                    >
+                      {item.name}
+                    </div>
                   ) : (
                     <Link
                       href={item.path}
