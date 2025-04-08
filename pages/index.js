@@ -90,6 +90,7 @@ export default function Home() {
                 <Button
                   href="/cv"
                   variant="primary"
+                  className="border-2 border-accent-green"
                 >
                   View CV
                 </Button>
