@@ -44,6 +44,12 @@ const browserSpecificStyles = `
         visibility: visible !important;
         opacity: 1 !important;
       }
+      
+      /* Fix for Safari background enlargement */
+      .safari-modal {
+        transform: none !important;
+        transition: opacity 0.3s ease !important;
+      }
     }
   }
 `;
@@ -194,6 +200,16 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
     const x = originX - targetX;
     const y = originY - targetY;
 
+    // For Safari, use simplified animation without transforms
+    if (isSafari) {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        className: "safari-modal"
+      };
+    }
+
     return {
       initial: { 
         opacity: 1,
@@ -291,18 +307,22 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                 <motion.div
                   {...getExpandAnimation()}
                   transition={{
-                    type: "spring",
+                    type: isSafari ? "tween" : "spring",
                     stiffness: 300,
                     damping: 30,
                     duration: 0.6
                   }}
-                  className="pointer-events-auto rounded-lg overflow-hidden"
+                  className={`pointer-events-auto rounded-lg overflow-hidden ${isSafari ? 'safari-modal' : ''}`}
                   onClick={(e) => e.stopPropagation()}
                 >
                   {isSafari ? (
                     // Safari version - Simple card without flip
                     <div 
                       className="w-full h-full bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                      style={{ 
+                        width: Math.min(windowSize.width * 0.9, 768),
+                        maxHeight: Math.min(windowSize.height * 0.8, 600),
+                      }}
                     >
                       <div className="relative z-20">
                         {backContent}
