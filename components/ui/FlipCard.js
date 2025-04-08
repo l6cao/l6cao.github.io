@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'react-feather';
 import { createPortal } from 'react-dom';
 
-// Add this CSS-only fix for Firefox and Safari at the top of your component
+// Browser-specific styles
 const browserSpecificStyles = `
   /* Firefox-specific fixes */
   @-moz-document url-prefix() {
@@ -50,6 +50,16 @@ const browserSpecificStyles = `
         transform: none !important;
         transition: opacity 0.3s ease !important;
       }
+      
+      /* iPad Safari specific fix */
+      .ipad-safari-modal {
+        position: absolute !important;
+        transform: none !important;
+        transform-origin: center center !important;
+        -webkit-transform: none !important;
+        -webkit-transform-origin: center center !important;
+        will-change: opacity !important;
+      }
     }
   }
 `;
@@ -67,6 +77,7 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
     height: typeof window !== 'undefined' ? window.innerHeight : 0
   });
   const [isSafari, setIsSafari] = useState(false);
+  const [isIPadSafari, setIsIPadSafari] = useState(false);
 
   // Handle client-side rendering and window resize
   useEffect(() => {
@@ -85,7 +96,13 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
       (/^((?!chrome|android).)*$/.test(navigator.userAgent) && 
        navigator.vendor === "Apple Computer, Inc.");
     
+    // iPad detection
+    const isIPad = 
+      /iPad/.test(navigator.userAgent) || 
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && !window.MSStream);
+    
     setIsSafari(isSafariBrowser);
+    setIsIPadSafari(isSafariBrowser && isIPad);
     
     window.addEventListener('resize', handleResize);
     return () => {
@@ -180,6 +197,26 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
       };
     }
 
+    // Special case for iPad Safari
+    if (isIPadSafari) {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        className: "ipad-safari-modal"
+      };
+    }
+
+    // For regular Safari
+    if (isSafari) {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        className: "safari-modal"
+      };
+    }
+
     // Target dimensions and position
     const targetWidth = Math.min(windowSize.width * 0.9, 768);
     const targetHeight = Math.min(windowSize.height * 0.8, 600);
@@ -199,16 +236,6 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
     // Calculate position offset
     const x = originX - targetX;
     const y = originY - targetY;
-
-    // For Safari, use simplified animation without transforms
-    if (isSafari) {
-      return {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        className: "safari-modal"
-      };
-    }
 
     return {
       initial: { 
@@ -302,89 +329,54 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                 style={{ cursor: 'pointer' }}
               />
               
-              {/* Card with animation from original position */}
-              <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
-                <motion.div
-                  {...getExpandAnimation()}
-                  transition={{
-                    type: isSafari ? "tween" : "spring",
-                    stiffness: 300,
-                    damping: 30,
-                    duration: 0.6
-                  }}
-                  className={`pointer-events-auto rounded-lg overflow-hidden ${isSafari ? 'safari-modal' : ''}`}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {isSafari ? (
-                    // Safari version - Simple card without flip
-                    <div 
-                      className="w-full h-full bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
-                      style={{ 
-                        width: Math.min(windowSize.width * 0.9, 768),
-                        maxHeight: Math.min(windowSize.height * 0.8, 600),
-                      }}
-                    >
-                      <div className="relative z-20">
-                        {backContent}
-                      </div>
-                      
-                      <button
-                        className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
-                                 text-surface/70 hover:text-surface transition-colors z-30"
-                        onClick={handleClose}
-                      >
-                        <X size={16} />
-                      </button>
+              {/* Special handling for iPad Safari */}
+              {isIPadSafari ? (
+                <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
+                  <div 
+                    className="pointer-events-auto bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
+                    style={{ 
+                      width: Math.min(windowSize.width * 0.9, 768),
+                      maxHeight: Math.min(windowSize.height * 0.8, 600),
+                      position: 'relative',
+                      zIndex: 10
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="relative z-20">
+                      {backContent}
                     </div>
-                  ) : (
-                    // Non-Safari version - Flip card
-                    <motion.div
-                      className="w-full h-full"
-                      style={{ 
-                        transformStyle: 'preserve-3d',
-                        WebkitTransformStyle: 'preserve-3d',
-                        perspective: '1000px',
-                        WebkitPerspective: '1000px'
-                      }}
-                      animate={{ rotateY: isFlipped ? 180 : 0 }}
-                      transition={{ duration: 0.8 }}
+                    
+                    <button
+                      className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                               text-surface/70 hover:text-surface transition-colors z-30"
+                      onClick={handleClose}
                     >
-                      {/* Front face */}
+                      <X size={16} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                // Regular animation for other browsers
+                <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
+                  <motion.div
+                    {...getExpandAnimation()}
+                    transition={{
+                      type: isSafari ? "tween" : "spring",
+                      stiffness: 300,
+                      damping: 30,
+                      duration: 0.6
+                    }}
+                    className={`pointer-events-auto rounded-lg overflow-hidden ${isSafari ? 'safari-modal' : ''}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {isSafari ? (
+                      // Safari version - Simple card without flip
                       <div 
+                        className="w-full h-full bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto"
                         style={{ 
-                          position: 'absolute',
-                          width: '100%',
-                          height: '100%',
-                          backfaceVisibility: 'hidden',
-                          WebkitBackfaceVisibility: 'hidden',
+                          width: Math.min(windowSize.width * 0.9, 768),
+                          maxHeight: Math.min(windowSize.height * 0.8, 600),
                         }}
-                        className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-front ${!isFlipped ? 'visible' : ''}`}
-                      >
-                        <div className="relative z-20">
-                          {frontContent}
-                        </div>
-                        
-                        <button
-                          className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
-                                   text-surface/70 hover:text-surface transition-colors z-30"
-                          onClick={handleClose}
-                        >
-                          <X size={16} />
-                        </button>
-                      </div>
-                      
-                      {/* Back face */}
-                      <div 
-                        style={{ 
-                          position: 'absolute',
-                          width: '100%',
-                          height: '100%',
-                          backfaceVisibility: 'hidden',
-                          WebkitBackfaceVisibility: 'hidden',
-                          transform: 'rotateY(180deg)',
-                          WebkitTransform: 'rotateY(180deg)',
-                        }}
-                        className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-back ${isFlipped ? 'visible' : ''}`}
                       >
                         <div className="relative z-20">
                           {backContent}
@@ -398,10 +390,73 @@ export default function FlipCard({ frontContent, backContent, className = '' }) 
                           <X size={16} />
                         </button>
                       </div>
-                    </motion.div>
-                  )}
-                </motion.div>
-              </div>
+                    ) : (
+                      // Non-Safari version - Flip card
+                      <motion.div
+                        className="w-full h-full"
+                        style={{ 
+                          transformStyle: 'preserve-3d',
+                          WebkitTransformStyle: 'preserve-3d',
+                          perspective: '1000px',
+                          WebkitPerspective: '1000px'
+                        }}
+                        animate={{ rotateY: isFlipped ? 180 : 0 }}
+                        transition={{ duration: 0.8 }}
+                      >
+                        {/* Front face */}
+                        <div 
+                          style={{ 
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                          }}
+                          className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-front ${!isFlipped ? 'visible' : ''}`}
+                        >
+                          <div className="relative z-20">
+                            {frontContent}
+                          </div>
+                          
+                          <button
+                            className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                     text-surface/70 hover:text-surface transition-colors z-30"
+                            onClick={handleClose}
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                        
+                        {/* Back face */}
+                        <div 
+                          style={{ 
+                            position: 'absolute',
+                            width: '100%',
+                            height: '100%',
+                            backfaceVisibility: 'hidden',
+                            WebkitBackfaceVisibility: 'hidden',
+                            transform: 'rotateY(180deg)',
+                            WebkitTransform: 'rotateY(180deg)',
+                          }}
+                          className={`bg-zinc-900 rounded-lg p-8 border border-accent-green/20 overflow-auto flip-card-back ${isFlipped ? 'visible' : ''}`}
+                        >
+                          <div className="relative z-20">
+                            {backContent}
+                          </div>
+                          
+                          <button
+                            className="absolute top-4 right-4 p-2 bg-zinc-800 hover:bg-zinc-700 rounded-full
+                                     text-surface/70 hover:text-surface transition-colors z-30"
+                            onClick={handleClose}
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                </div>
+              )}
             </div>
           )}
         </AnimatePresence>,
