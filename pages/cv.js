@@ -144,12 +144,14 @@ export default function CV() {
 
             <div className="mb-6">
               <div className="mb-1">
-                <h3 className="font-bold">Novel Parameter-Efficient Fine-Tuning Method</h3>
-                <p>Research Contributor, December 2024 - February 2025, currently under review</p>
+                <h3 className="font-bold">UORA: Uniform Orthogonal Reinitialization Adaptation</h3>
+                <p>Research Contributor, December 2024 - February 2025, accepted to ACL 2025 Main Conference</p>
               </div>
               <ul className="list-disc list-inside ml-2">
-                <li>Investigating novel approaches to PEFT methodologies</li>
+                <li>Contributed to developing UORA, a novel PEFT method achieving 15x parameter reduction vs LoRA while maintaining performance</li>
+                <li>Implemented orthogonal uniform initialization and dimension pruning strategies</li>
                 <li>Technologies: Python, PyTorch, LLM APIs, Deep Learning</li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2505.20154" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
               </ul>
             </div>
 

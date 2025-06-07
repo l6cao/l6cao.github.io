@@ -362,15 +362,18 @@ export default function Home() {
               }
             />
 
-            {/* Card 3: PEFT Method */}
+            {/* Card 2: UORA - PEFT Method */}
             <FlipCard
               frontContent={
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-surface">Novel Parameter-Efficient Fine-Tuning</h3>
+                  <h3 className="text-2xl font-bold text-surface">UORA: Uniform Orthogonal Reinitialization Adaptation</h3>
                   <p className="text-surface/80">
-                    Developing a highly efficient PEFT method using low-rank approximation and re-parametrization for improved parameter efficiency.
+                    Novel parameter-efficient fine-tuning method achieving state-of-the-art efficiency through interpolation-based reinitialization of frozen projection matrices.
                   </p>
                   <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      ACL 2025 Main
+                    </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
                       PEFT
                     </span>
@@ -378,9 +381,6 @@ export default function Home() {
                       LLM Fine-tuning
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Efficiency
-                    </span>
-                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
                       Low-Rank Methods
                     </span>
                   </div>
@@ -389,14 +389,24 @@ export default function Home() {
               backContent={
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
-                   <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Contributor on paper under review, supporting the development and evaluation of the proposed method.</li>
-                    <li>Contributed to implementing and testing a novel PEFT technique that achieves performance comparable to existing methods while significantly reducing the number of trainable parameters required.</li>
-                    <li>Assisted in validating the method's effectiveness and efficiency across a range of standard Natural Language Processing benchmarks and practical instruction-tuning scenarios.</li>
-                    <li>Focused on experiments related to the re-parametrization mechanism to enhance parameter efficiency and reduce computational overhead during the fine-tuning process.</li>
-                    <li>Involved working with Python and PyTorch for model implementation and training, applying deep learning principles, and interacting with LLM APIs for baseline comparisons and analysis.</li>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>Contributor on paper accepted to ACL 2025 main conference, focusing on parameter-efficient fine-tuning innovation.</li>
+                    <li>UORA achieves 15x fewer parameters than LoRA on GLUE benchmarks and 8x fewer on E2E benchmarks while maintaining competitive performance.</li>
+                    <li>Key innovation: interpolation-based reinitialization mechanism that selectively updates frozen matrices based on vector magnitude heuristics, enabling lower ranks than VeRA.</li>
+                    <li>Comprehensive evaluation across NLU (GLUE), NLG (E2E), instruction-tuning (LLaMA), and computer vision (ViT) tasks demonstrating broad applicability.</li>
+                    <li>Implemented orthogonal uniform initialization and dimension pruning strategies to enhance gradient flow and parameter efficiency.</li>
+                    <li>Contributed to experimental design using PyTorch, extensive hyperparameter tuning, and ablation studies validating the approach.</li>
                   </ul>
-                   {/* No public link mentioned in abstract/CV */}
+                  <Button
+                    href="https://arxiv.org/abs/2505.20154"
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Read Paper (arXiv)
+                  </Button>
                 </div>
               }
             />
