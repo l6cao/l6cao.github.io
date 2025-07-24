@@ -118,10 +118,38 @@ export default function CV() {
           >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Research Experience</h2>
             
+            {/* Debate-Driven Evaluation Paper */}
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">Pretraining on the Test Set Is No Longer All You Need: A Debate-Driven Approach to QA Benchmarks</h3>
+                <p>First Author, March 2025 - July 2025, accepted to COLM 2025</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Proposed a debate-driven evaluation paradigm for QA benchmarks, transforming standard datasets into adversarial debates between models adjudicated by a blind judge model</li>
+                <li>Developed an evaluation pipeline and public benchmark demonstrating robustness against data contamination and shallow memorization</li>
+                <li>Empirical results show debate-based evaluation penalizes memorization and scales to future, more capable systems</li>
+                <li>Technologies: Python, LLM APIs, Benchmarking, Multi-agent Systems</li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2507.17747" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+              </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="mb-1">
+                <h3 className="font-bold">UORA: Uniform Orthogonal Reinitialization Adaptation</h3>
+                <p>Contributing Author, December 2024 - February 2025, accepted to ACL 2025 Main Conference</p>
+              </div>
+              <ul className="list-disc list-inside ml-2">
+                <li>Contributed to developing UORA, a novel PEFT method achieving 15x parameter reduction vs LoRA while maintaining performance</li>
+                <li>Implemented orthogonal uniform initialization and dimension pruning strategies</li>
+                <li>Technologies: Python, PyTorch, LLM APIs, Deep Learning</li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2505.20154" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+              </ul>
+            </div>
+
             <div className="mb-6">
               <div className="mb-1">
                 <h3 className="font-bold">Bias and Toxicity in Role-Play Reasoning</h3>
-                <p>Research Contributor, August 2024 - December 2024, currently under revision & review</p>
+                <p>Co-first Author, August 2024 - December 2024, currently under revision & review</p>
               </div>
               <ul className="list-disc list-inside ml-2">
                 <li>Co-first author on research paper currently under peer review</li>
@@ -134,35 +162,11 @@ export default function CV() {
             <div className="mb-6">
               <div className="mb-1">
                 <h3 className="font-bold">Bias and Toxicity in Other Reasoning Frameworks in LLMs</h3>
-                <p>Research Contributor, November 2024 - February 2025, currently under review</p>
+                <p>Co-first Author, November 2024 - February 2025, currently under review</p>
               </div>
               <ul className="list-disc list-inside ml-2">
                 <li>Studying bias and toxicity patterns in complex reasoning tasks</li>
                 <li>Technologies: Python, LLM APIs, vLLM, Ollama, Data Analysis</li>
-              </ul>
-            </div>
-
-            <div className="mb-6">
-              <div className="mb-1">
-                <h3 className="font-bold">UORA: Uniform Orthogonal Reinitialization Adaptation</h3>
-                <p>Research Contributor, December 2024 - February 2025, accepted to ACL 2025 Main Conference</p>
-              </div>
-              <ul className="list-disc list-inside ml-2">
-                <li>Contributed to developing UORA, a novel PEFT method achieving 15x parameter reduction vs LoRA while maintaining performance</li>
-                <li>Implemented orthogonal uniform initialization and dimension pruning strategies</li>
-                <li>Technologies: Python, PyTorch, LLM APIs, Deep Learning</li>
-                <li>Paper available on <a href="https://arxiv.org/abs/2505.20154" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
-              </ul>
-            </div>
-
-            <div className="mb-6">
-              <div className="mb-1">
-                <h3 className="font-bold">LLM Anti-Contamination Evaluation Frameworks</h3>
-                <p>Research Contributor, January 2025 - March 2025, currently under review</p>
-              </div>
-              <ul className="list-disc list-inside ml-2">
-                <li>Developing dynamic, multi-agent based evaluation methodologies for large language models</li>
-                <li>Technologies: Python, PyTorch, vLLM, LLM Benchmarking, Statistical Analysis</li>
               </ul>
             </div>
           </motion.section>

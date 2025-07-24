@@ -80,7 +80,7 @@ export default function Home() {
                 <span className="block">&amp; Developer</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-surface/80">
-                <span className="whitespace-normal md:whitespace-nowrap">Mathematics Undergraduate at UWaterloo (2B Term)</span>
+                <span className="whitespace-normal md:whitespace-nowrap">Mathematics Undergraduate at UWaterloo (2023 - 2028)</span>
                 <br />
                 LLM Addict
                 <br />
@@ -117,14 +117,13 @@ export default function Home() {
             {/* About Content */}
             <div className="space-y-6">
               <p className="text-lg text-surface/80">
-                Mathematics undergraduate at the University of Waterloo with a focus on AI research and development. Possesses an extraordinarily strong interest and experience in LLM development and implementation.
-              </p>
-              {/* New paragraph detailing journey */}
-              <p className="text-lg text-surface/80">
-                My background includes competitive programming since high school, achieving Rank 12 in the 2023 Canadian Computing Competition (Senior). However, witnessing the launch of ChatGPT in late 2022 and GPT-4 in early 2023 sparked a profound shift. Recognizing the transformative potential of Large Language Models, I decided to pivot from pursuing competitive programming towards understanding and contributing to the rapidly evolving field of LLMs. I've been fortunate to connect with supportive collaborators and mentors who have guided my research journey.
+                I am a Mathematics undergraduate at the University of Waterloo, now singularly focused on the core challenges of Large Language Models: <strong>evaluation, safety, and efficiency (PEFT).</strong>
               </p>
               <p className="text-lg text-surface/80">
-                Actively engaged in ongoing research encompassing LLM evaluation, PEFT, ethics, and alignment. Quick learner capable of managing tasks across diverse fields, including IT maintenance and UI/UX design. Demonstrated excellence in competitive programming and mathematics competitions.
+                After a high-achieving background in mathematics and programming, the launch of models like GPT-4 was a profound turning point. The almost alien-like intelligence, the emergence of alter-egos like 'Sydney' in Bing, the cat-and-mouse game of 'DAN' prompts—I was completely captivated. Then, during my first year of university, witnessing the rapid evolution with models like Claude 3 and Gemini 1.5, I realized I couldn't afford to wait. I had to dive in, and contributing to this field became my absolute priority, every single day.
+              </p>
+              <p className="text-lg text-surface/80">
+                This is the drive that fuels my research. It's what has allowed me, with the help of great collaborators, to contribute to the work you see here. My goal is to bring this same hands-on intensity to a team building the next generation of robust and reliable AI systems.
               </p>
             </div>
 
@@ -274,26 +273,31 @@ export default function Home() {
 
           {/* Updated grid to accommodate 4 cards */}
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Card 1: Role-Play Bias */}
+            {/* Card 1: Robust LLM Evaluation (Debate-Driven) */}
             <FlipCard
               frontContent={
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-surface">Bias & Toxicity in Role-Play Reasoning</h3>
+                  <h3 className="text-2xl font-bold text-surface">
+                    Pretraining on the Test Set Is No Longer All You Need: A Debate-Driven Approach to QA Benchmarks
+                  </h3>
                   <p className="text-surface/80">
-                    Investigating how LLM role-play, especially with automated role selection, can amplify bias and generate harmful content even from neutral roles.
+                    Introduces a debate-driven evaluation paradigm for QA benchmarks, applicable to all QA datasets, tackling data contamination and benchmark saturation.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      LLM Bias
+                      COLM 2025
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Toxicity Analysis
+                      LLM Evaluation
                     </span>
-                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Role-Play Scenarios
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Data Contamination
                     </span>
-                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Safety Risks
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Multi-Agent Systems
+                    </span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Benchmarking
                     </span>
                   </div>
                 </div>
@@ -302,15 +306,14 @@ export default function Home() {
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
                   <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Co-first author on research paper currently under peer review, contributing significantly to methodology and analysis.</li>
-                    <li>Conducted in-depth analysis of risks associated with automated role selection mechanisms in LLMs, highlighting potential failure modes and safety concerns.</li>
-                    <li>Systematically examined how assigning different persona roles (even neutral ones) impacts the generation frequency and severity of biased or harmful content across various contexts.</li>
-                    <li>Contributed to the experimental design, data collection process, and interpretation of results for the study, ensuring rigorous evaluation.</li>
-                    <li>Utilized Python for scripting experiments, interacted with various LLM APIs, employed standard safety and bias benchmarks, and performed rigorous data analysis using libraries like pandas and Matplotlib.</li>
+                    <li>First author on COLM 2025 accepted paper introducing a debate-driven evaluation paradigm for QA benchmarks.</li>
+                    <li>Developed a systematic pipeline to convert QA tasks into adversarial debates, with a judge model blind to the correct answer.</li>
+                    <li>Demonstrated that debate-based evaluation penalizes memorization and is robust to data contamination, outperforming standard benchmarks.</li>
+                    <li>Released a public benchmark and code, showing scalability and cost-effectiveness for future LLM evaluation.</li>
+                    <li>Technologies: Python, LLM APIs, Benchmarking, Multi-agent Systems</li>
                   </ul>
-                  {/* Keep arXiv link if it's already public */}
                   <Button
-                    href="https://arxiv.org/abs/2409.13979" // Link from CV
+                    href="https://arxiv.org/abs/2507.17747"
                     variant="outline"
                     size="sm"
                     className="mt-4"
@@ -319,45 +322,6 @@ export default function Home() {
                   >
                     Read Paper (arXiv)
                   </Button>
-                </div>
-              }
-            />
-
-            {/* Card 2: Reasoning Framework Bias */}
-            <FlipCard
-              frontContent={
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-surface">Safety Risks in LLM Reasoning Frameworks</h3>
-                  <p className="text-surface/80">
-                    Examining toxicity and fairness issues arising from advanced LLM reasoning techniques like chain-of-thought and multi-agent debating.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      LLM Safety
-                    </span>
-                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Reasoning Frameworks
-                    </span>
-                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Toxicity & Fairness
-                    </span>
-                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Alignment
-                    </span>
-                  </div>
-                </div>
-              }
-              backContent={
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
-                   <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Co-first author on paper under review, sharing primary responsibility for the research direction and execution.</li>
-                    <li>Provided empirical evidence demonstrating how advanced reasoning prompts (e.g., chain-of-thought, multi-agent interactions) can inadvertently bypass safety alignments, leading to undesirable outputs.</li>
-                    <li>Performed comprehensive evaluations across a diverse set of large language models and utilized multiple established safety benchmarks to ensure the robustness and generalizability of findings.</li>
-                    <li>Investigated the influence of prompt structure, complexity, and language variations on model safety performance during complex reasoning tasks.</li>
-                    <li>Leveraged Python, various LLM APIs, and efficient inference libraries like vLLM and Ollama for large-scale experiments, coupled with detailed statistical data analysis.</li>
-                  </ul>
-                  {/* No public link mentioned in abstract/CV */}
                 </div>
               }
             />
@@ -411,26 +375,75 @@ export default function Home() {
               }
             />
 
-            {/* Card 4: Robust LLM Evaluation */}
+            {/* Card 3: Role-Play Bias */}
             <FlipCard
               frontContent={
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-surface">Robust LLM Evaluation Methods</h3>
+                  <h3 className="text-2xl font-bold text-surface">Bias & Toxicity in Role-Play Reasoning</h3>
                   <p className="text-surface/80">
-                    Developing novel evaluation paradigms using multi-agent interactions to better assess LLM capabilities beyond standard benchmarks, addressing challenges like data contamination.
+                    Investigating how LLM role-play, especially with automated role selection, can amplify bias and generate harmful content even from neutral roles.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      LLM Evaluation
+                      LLM Bias
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Data Contamination
+                      Toxicity Analysis
+                    </span>
+                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Role-Play Scenarios
+                    </span>
+                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Safety Risks
+                    </span>
+                  </div>
+                </div>
+              }
+              backContent={
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>Co-first author on research paper currently under peer review, contributing significantly to methodology and analysis.</li>
+                    <li>Conducted in-depth analysis of risks associated with automated role selection mechanisms in LLMs, highlighting potential failure modes and safety concerns.</li>
+                    <li>Systematically examined how assigning different persona roles (even neutral ones) impacts the generation frequency and severity of biased or harmful content across various contexts.</li>
+                    <li>Contributed to the experimental design, data collection process, and interpretation of results for the study, ensuring rigorous evaluation.</li>
+                    <li>Utilized Python for scripting experiments, interacted with various LLM APIs, employed standard safety and bias benchmarks, and performed rigorous data analysis using libraries like pandas and Matplotlib.</li>
+                  </ul>
+                  {/* Keep arXiv link if it's already public */}
+                  <Button
+                    href="https://arxiv.org/abs/2409.13979" // Link from CV
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Read Paper (arXiv)
+                  </Button>
+                </div>
+              }
+            />
+
+            {/* Card 4: Reasoning Framework Bias */}
+            <FlipCard
+              frontContent={
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-surface">Safety Risks in LLM Reasoning Frameworks</h3>
+                  <p className="text-surface/80">
+                    Examining toxicity and fairness issues arising from advanced LLM reasoning techniques like chain-of-thought and multi-agent debating.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      LLM Safety
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Multi-Agent Systems
+                      Reasoning Frameworks
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                      Benchmarking
+                      Toxicity & Fairness
+                    </span>
+                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      Alignment
                     </span>
                   </div>
                 </div>
@@ -439,12 +452,11 @@ export default function Home() {
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
                    <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>First author on paper under review, leading the conceptualization, design, and execution of the research project.</li>
-                    <li>Led the design and implementation of a novel evaluation framework centered around structured multi-agent interactions (e.g., debates) to probe deeper model reasoning capabilities.</li>
-                    <li>Developed robust protocols for converting existing question-answering datasets into the interactive evaluation format, enabling scalable benchmark creation.</li>
-                    <li>Thoroughly investigated the framework's robustness against data contamination and superficial benchmark memorization, demonstrating its ability to assess genuine understanding versus recall.</li>
-                    <li>Conducted extensive analysis comparing the proposed evaluation approach against standard methods, highlighting its advantages in cost-effectiveness, difficulty scaling, and assessment depth.</li>
-                    <li>Employed Python, PyTorch, and vLLM for setting up the multi-agent system and running evaluations, utilized various benchmarks for comparison, and applied statistical analysis to validate results.</li>
+                    <li>Co-first author on paper under review, sharing primary responsibility for the research direction and execution.</li>
+                    <li>Provided empirical evidence demonstrating how advanced reasoning prompts (e.g., chain-of-thought, multi-agent interactions) can inadvertently bypass safety alignments, leading to undesirable outputs.</li>
+                    <li>Performed comprehensive evaluations across a diverse set of large language models and utilized multiple established safety benchmarks to ensure the robustness and generalizability of findings.</li>
+                    <li>Investigated the influence of prompt structure, complexity, and language variations on model safety performance during complex reasoning tasks.</li>
+                    <li>Leveraged Python, various LLM APIs, and efficient inference libraries like vLLM and Ollama for large-scale experiments, coupled with detailed statistical data analysis.</li>
                   </ul>
                   {/* No public link mentioned in abstract/CV */}
                 </div>
