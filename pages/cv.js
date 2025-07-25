@@ -89,7 +89,7 @@ export default function CV() {
             <div className="mb-4">
               <div className="mb-1">
                 <h3 className="font-bold">Bachelor of Mathematics, Honours Co-op</h3>
-                <p>University of Waterloo, 2023 - 2028 (2B Term)</p>
+                <p>University of Waterloo, 2023 - 2028 </p>
               </div>
               <ul className="list-disc list-inside ml-2">
                 <li>Relevant coursework: Statistics, Objective Programming, Technical Writing</li>
