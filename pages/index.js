@@ -248,8 +248,19 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold font-title tracking-tighter text-surface mb-12">
             Work <span className="text-accent-green font-accent">Experience</span>
           </h2>
-          {/* Experience content added from CV */}
           <div className="space-y-8">
+            <div className="bg-surface/5 p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-bold text-surface mb-1">Cofounder & Founding Engineer</h3>
+              <p className="text-accent-green mb-2">
+                <a href="https://socaio.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Socaio</a> | Aug 2025 - Sep 2025
+              </p>
+              <ul className="list-disc list-inside text-surface/80 space-y-1">
+                <li>Solely engineered the LLM-powered social simulation platform from concept to MVP.</li>
+                <li>Developed the full stack, including a Next.js front-end, FastAPI back-end, and the core LLM pipeline.</li>
+                <li>Shipped the product in under one month, establishing the foundation for initial user and investor outreach.</li>
+              </ul>
+            </div>
+
             <div className="bg-surface/5 p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-bold text-surface mb-1">Web Content & Digital Marketing Specialist</h3>
               <p className="text-accent-green mb-2">Darlings Ingredients | Sep 2024 - Dec 2024</p>
@@ -259,7 +270,6 @@ export default function Home() {
                 <li>Implemented SEO optimization and UI/UX improvements.</li>
               </ul>
             </div>
-            {/* Add more experience items here if needed */}
           </div>
         </div>
       </Section>

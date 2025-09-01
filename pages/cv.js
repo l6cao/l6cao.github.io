@@ -29,7 +29,7 @@ export default function CV() {
         >
           {/* Back Button */}
           <div className="mb-6">
-            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors flex items-center">
+            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors flex items-center font-bold">
               <ArrowLeft size={20} className="mr-2" />
               <span>Back to Home</span>
             </Link>
@@ -52,9 +52,9 @@ export default function CV() {
                   <ul className="space-y-1">
                     <li>Email: l6cao@uwaterloo.ca</li>
                     <li>Location: Waterloo, ON, Canada</li>
-                    <li>LinkedIn: <a href="https://www.linkedin.com/in/linbo-cao/" className="text-[#6ba123] hover:text-[#557f1b]">linkedin.com/in/linbo-cao</a></li>
-                    <li>Google Scholar: <a href="https://scholar.google.com/citations?user=MvVnENkAAAAJ" className="text-[#6ba123] hover:text-[#557f1b]">Profile</a></li>
-                    <li>GitHub: <a href="https://github.com/l6cao" className="text-[#6ba123] hover:text-[#557f1b]">github.com/l6cao</a></li>
+                    <li>LinkedIn: <a href="https://www.linkedin.com/in/linbo-cao/" className="text-[#6ba123] hover:text-[#557f1b] font-bold">linkedin.com/in/linbo-cao</a></li>
+                    <li>Google Scholar: <a href="https://scholar.google.com/citations?user=MvVnENkAAAAJ" className="text-[#6ba123] hover:text-[#557f1b] font-bold">Profile</a></li>
+                    <li>GitHub: <a href="https://github.com/l6cao" className="text-[#6ba123] hover:text-[#557f1b] font-bold">github.com/l6cao</a></li>
                   </ul>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function CV() {
             transition={{ duration: 0.5, delay: 0.7 }}
           >
             <h2 className="text-xl font-bold mb-2 text-[#FF6600]">Research Experience</h2>
-            
+
             {/* Debate-Driven Evaluation Paper */}
             <div className="mb-6">
               <div className="mb-1">
@@ -125,11 +125,11 @@ export default function CV() {
                 <p>First Author, March 2025 - July 2025, accepted to COLM 2025</p>
               </div>
               <ul className="list-disc list-inside ml-2">
-                <li>Proposed a debate-driven evaluation paradigm for QA benchmarks, transforming standard datasets into adversarial debates between models adjudicated by a blind judge model</li>
-                <li>Developed an evaluation pipeline and public benchmark demonstrating robustness against data contamination and shallow memorization</li>
-                <li>Empirical results show debate-based evaluation penalizes memorization and scales to future, more capable systems</li>
+                <li>A debate-driven paradigm for LLM Evaluation, converting exisiting QA benchmarks into adversarial debates.</li>
+                <li>Developed an evaluation pipeline robust against data contamination and shallow memorization.</li>
+                <li>Empirical results show debate-based evaluation penalizes memorization and scales to future, more capable systems.</li>
                 <li>Technologies: Python, LLM APIs, Benchmarking, Multi-agent Systems</li>
-                <li>Paper available on <a href="https://arxiv.org/abs/2507.17747" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2507.17747" className="text-[#6ba123] hover:text-[#557f1b] font-bold">arXiv</a></li>
               </ul>
             </div>
 
@@ -139,10 +139,10 @@ export default function CV() {
                 <p>Contributing Author, December 2024 - February 2025, accepted to ACL 2025 Main Conference</p>
               </div>
               <ul className="list-disc list-inside ml-2">
-                <li>Contributed to developing UORA, a novel PEFT method achieving 15x parameter reduction vs LoRA while maintaining performance</li>
-                <li>Implemented orthogonal uniform initialization and dimension pruning strategies</li>
-                <li>Technologies: Python, PyTorch, LLM APIs, Deep Learning</li>
-                <li>Paper available on <a href="https://arxiv.org/abs/2505.20154" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+                <li>Contributed to UORA, a PEFT method with 15x fewer parameters than LoRA without performance loss.</li>
+                <li>Implemented orthogonal uniform initialization and dimension pruning strategies.</li>
+                <li>Technologies: Python, PyTorch, LLM APIs, PEFT</li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2505.20154" className="text-[#6ba123] hover:text-[#557f1b] font-bold">arXiv</a></li>
               </ul>
             </div>
 
@@ -155,7 +155,7 @@ export default function CV() {
                 <li>Co-first author on research paper currently under peer review</li>
                 <li>Investigated bias and toxicity affects in LLM role-play scenarios</li>
                 <li>Technologies: Python, LLM APIs, LLM Benchmarks, Data Management, Matplotlib, NumPy, pandas</li>
-                <li>Paper available on <a href="https://arxiv.org/abs/2409.13979" className="text-[#6ba123] hover:text-[#557f1b]">arXiv</a></li>
+                <li>Paper available on <a href="https://arxiv.org/abs/2409.13979" className="text-[#6ba123] hover:text-[#557f1b] font-bold">arXiv</a></li>
               </ul>
             </div>
 
@@ -182,13 +182,40 @@ export default function CV() {
             
             <div className="mb-6">
               <div className="mb-1">
+                <h3 className="font-bold">Cofounder & Founding Engineer</h3>
+                <p><a href="https://socaio.com" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-800 font-bold">Socaio</a>, August 2025 - September 2025</p>
+              </div>
+              <ul className="list-disc list-inside ml-2 space-y-1">
+                <li>
+                  Solely engineered a multi-agent social simulation tool for PR pros to stress-test messaging before public release.
+                </li>
+                <li>
+                  Built Next.js frontend with real-time rendering & WebSockets, using Supabase for auth/DB and multilingual support.
+                </li>
+                <li>
+                  Architected a FastAPI backend with async/sync endpoints to orchestrate multi-stage simulations.
+                </li>
+                <li>
+                  Orchestrated multi-agent pipeline via Gemini API, using function calling, key, load, rate, and exception management.
+                </li>
+                <li>
+                  Deployed on Oracle Cloud, ensuring high availability with PM2 and security/performance with Cloudflare.
+                </li>
+                <li>
+                  Shipped the concept-to-MVP in under one month, establishing the foundation for user and investor outreach.
+                </li>
+              </ul>
+            </div>
+
+            <div className="mb-6">
+              <div className="mb-1">
                 <h3 className="font-bold">Web Content & Digital Marketing Specialist</h3>
                 <p>Darlings Ingredients, September 2024 - December 2024</p>
               </div>
               <ul className="list-disc list-inside ml-2">
-                <li>Managed digital marketing campaigns and web content strategy</li>
-                <li>Utilized tools including Canva, Figma, Google Analytics, and HubSpot</li>
-                <li>Implemented SEO optimization and UI/UX improvements</li>
+                <li>Managed digital marketing campaigns and web content strategy.</li>
+                <li>Utilized tools including Canva, Figma, Google Analytics, and HubSpot.</li>
+                <li>Implemented SEO optimization and UI/UX improvements.</li>
               </ul>
             </div>
           </motion.section>
@@ -210,7 +237,7 @@ export default function CV() {
               <ul className="list-disc list-inside ml-2">
                 <li>Technologies: React, Next.js, Tailwind CSS, HTML/CSS, Git</li>
                 <li>Implemented responsive design and modern UI components</li>
-                <li>Link: <a href="https://l6cao.github.io" className="text-[#6ba123] hover:text-[#557f1b]">l6cao.github.io</a></li>
+                <li>Link: <a href="https://l6cao.github.io" className="text-[#6ba123] hover:text-[#557f1b] font-bold">l6cao.github.io</a></li>
               </ul>
             </div>
             
@@ -221,7 +248,7 @@ export default function CV() {
               </div>
               <ul className="list-disc list-inside ml-2">
                 <li>Technologies: React, JavaScript</li>
-                <li>GitHub: <a href="https://github.com/l6cao/pathfinding-visualizer" className="text-[#6ba123] hover:text-[#557f1b]">Repository</a></li>
+                <li>GitHub: <a href="https://github.com/l6cao/pathfinding-visualizer" className="text-[#6ba123] hover:text-[#557f1b] font-bold">Repository</a></li>
               </ul>
             </div>
             
@@ -232,7 +259,7 @@ export default function CV() {
               </div>
               <ul className="list-disc list-inside ml-2">
                 <li>Technologies: C#, LLM Integration</li>
-                <li>GitHub: <a href="https://github.com/l6cao/NotiSimplify" className="text-[#6ba123] hover:text-[#557f1b]">Repository</a></li>
+                <li>GitHub: <a href="https://github.com/l6cao/NotiSimplify" className="text-[#6ba123] hover:text-[#557f1b] font-bold">Repository</a></li>
               </ul>
             </div>
           </motion.section>
@@ -296,7 +323,7 @@ export default function CV() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1.2 }}
           >
-            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors">
+            <Link href="/" className="text-[#6ba123] hover:text-[#557f1b] transition-colors font-bold">
               Home
             </Link>
           </motion.div>
