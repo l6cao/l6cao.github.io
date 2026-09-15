@@ -84,7 +84,7 @@ export default function Home() {
                 <br />
                 LLM Addict
                 <br />
-                Focusing on LLM Evaluation, PEFT, and Alignment.
+                Working across the <span className="text-accent-green font-accent">full spectrum of LLMs</span>.
               </p>
               <div className="flex justify-center md:justify-start gap-4">
                 <Button
@@ -117,7 +117,7 @@ export default function Home() {
             {/* About Content */}
             <div className="space-y-6">
               <p className="text-lg text-surface/80">
-                I am a Mathematics undergraduate at the University of Waterloo, now singularly focused on the core challenges of Large Language Models: <strong>evaluation, safety, and efficiency (PEFT).</strong>
+                I am a Mathematics undergraduate at the University of Waterloo, working across the full spectrum of Large Language Models: <strong>from pretraining, RL, and diffusion LLMs to evaluation, agents, interpretability, and safety</strong> — along with the infrastructure to train and serve them.
               </p>
               <p className="text-lg text-surface/80">
                 After a high-achieving background in mathematics and programming, the launch of models like GPT-4 was a profound turning point. The almost alien-like intelligence, the emergence of alter-egos like 'Sydney' in Bing, the cat-and-mouse game of 'DAN' prompts—I was completely captivated. Then, during my first year of university, witnessing the rapid evolution with models like Claude 3 and Gemini 1.5, I realized I couldn't afford to wait. I had to dive in, and contributing to this field became my absolute priority, every single day.
@@ -131,109 +131,48 @@ export default function Home() {
             <div className="space-y-6">
               <h3 className="text-xl font-bold text-surface">Technical Skills</h3>
 
-              {/* Programming Languages */}
+              {/* LLM Training */}
               <div className="space-y-2">
-                <h4 className="text-accent-green">Programming Languages</h4>
+                <h4 className="text-accent-green">LLM Training</h4>
                 <div className="flex flex-wrap gap-2">
-                  {['Python', 'JavaScript', 'C#', 'C++', 'R'].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
-                    >
-                      {skill}
-                    </span>
+                  {['Pretraining', 'PEFT', 'RL', 'Diffusion LLMs', 'vLLM', 'Parallelism', 'Evaluation', 'Interpretability', 'Safety'].map((skill) => (
+                    <span key={skill} className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm">{skill}</span>
                   ))}
                 </div>
               </div>
-
-              {/* AI/ML */}
+              {/* LLM Agents */}
               <div className="space-y-2">
-                <h4 className="text-accent-green">AI & Machine Learning</h4>
+                <h4 className="text-accent-green">LLM Agents</h4>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    'PyTorch',
-                    'LLM Deployment',
-                    'LLM Evaluation',
-                    'LLM Fine-tuning',
-                    'PEFT', // Added PEFT explicitly
-                    'Multi-agent Systems',
-                    'Natural Language Processing',
-                    'LLM Alignment & Safety' // Added Alignment/Safety
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
-                    >
-                      {skill}
-                    </span>
+                  {['Agent Harness', 'Multi-agent', 'Agentic Benchmarks', 'Auto Research', 'Sandboxing', 'MCPs', 'RL Environments'].map((skill) => (
+                    <span key={skill} className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm">{skill}</span>
                   ))}
                 </div>
               </div>
-
-              {/* Web Development */}
+              {/* Systems & Infra */}
               <div className="space-y-2">
-                <h4 className="text-accent-green">Web Development</h4>
+                <h4 className="text-accent-green">Systems & Infra</h4>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    'React',
-                    'Next.js',
-                    'HTML/CSS',
-                    'Tailwind CSS',
-                    'Git'
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
-                    >
-                      {skill}
-                    </span>
+                  {['Linux', 'Slurm', 'CUDA', 'HPC', 'Distributed FS', 'RoCE', 'Docker', 'Apptainer'].map((skill) => (
+                    <span key={skill} className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm">{skill}</span>
                   ))}
                 </div>
               </div>
-
-              {/* Data Analysis */}
+              {/* Full-Stack & Cloud */}
               <div className="space-y-2">
-                <h4 className="text-accent-green">Data Analysis</h4>
+                <h4 className="text-accent-green">Full-Stack & Cloud</h4>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    'Matplotlib',
-                    'NumPy',
-                    'pandas',
-                    'Seaborn',
-                    'Statistical Analysis'
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
-                    >
-                      {skill}
-                    </span>
+                  {['Next.js', 'React', 'FastAPI', 'Supabase', 'GCP', 'Oracle'].map((skill) => (
+                    <span key={skill} className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm">{skill}</span>
                   ))}
                 </div>
               </div>
-
-              {/* Tools & Technologies */}
+              {/* Agentic Coding */}
               <div className="space-y-2">
-                <h4 className="text-accent-green">Tools & Technologies</h4>
+                <h4 className="text-accent-green">Agentic Coding</h4>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    'Git',
-                    'Linux',
-                    'Docker',
-                    'Figma',
-                    'Canva',
-                    'Google Analytics',
-                    'HubSpot',
-                    'LaTeX',
-                    'vLLM', // Added from research
-                    'Ollama' // Added from research
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm"
-                    >
-                      {skill}
-                    </span>
+                  {['Claude Code', 'Codex', 'DSH', 'OpenCode', 'CLI Proxy', 'Ralph loop', 'Superpowers'].map((skill) => (
+                    <span key={skill} className="px-3 py-1 bg-surface/5 rounded-full text-surface/80 text-sm">{skill}</span>
                   ))}
                 </div>
               </div>
@@ -250,6 +189,17 @@ export default function Home() {
           </h2>
           <div className="space-y-8">
             <div className="bg-surface/5 p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-bold text-surface mb-1">LLM Researcher / Infra</h3>
+              <p className="text-accent-green mb-2">Noah's Ark Lab, Huawei Canada, Montreal | Jan 2026 - Aug 2026</p>
+              <ul className="list-disc list-inside text-surface/80 space-y-1">
+                <li>Ran research largely through agentic auto-research, orchestrating LLM agents to run experiments rather than by hand.</li>
+                <li>Explored Tiny Recursive Models and their transfer to LLMs; traced the autoregressive bottleneck and pivoted to diffusion LLM pretraining and RL.</li>
+                <li>Built an RL benchmark where a master agent RL-trains a smaller LLM to stress-test and evolve the harness; later a multi-agent benchmark via Lean.</li>
+                <li>Ran cluster administration (Slurm, distributed filesystems, CUDA/GPU) and designed and built a ~30-node GPU cluster from local workstations, owning the network topology, filesystem, and full stack.</li>
+              </ul>
+            </div>
+
+            <div className="bg-surface/5 p-6 rounded-lg shadow-md">
               <h3 className="text-xl font-bold text-surface mb-1">Cofounder & Founding Engineer</h3>
               <p className="text-accent-green mb-2">
                 <a href="https://socaio.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Socaio</a> | Aug 2025 - Sep 2025
@@ -258,16 +208,6 @@ export default function Home() {
                 <li>Solely engineered the LLM-powered social simulation platform from concept to MVP.</li>
                 <li>Developed the full stack, including a Next.js front-end, FastAPI back-end, and the core LLM pipeline.</li>
                 <li>Shipped the product in under one month, establishing the foundation for initial user and investor outreach.</li>
-              </ul>
-            </div>
-
-            <div className="bg-surface/5 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-surface mb-1">Web Content & Digital Marketing Specialist</h3>
-              <p className="text-accent-green mb-2">Darlings Ingredients | Sep 2024 - Dec 2024</p>
-              <ul className="list-disc list-inside text-surface/80 space-y-1">
-                <li>Managed digital marketing campaigns and web content strategy.</li>
-                <li>Utilized tools including Canva, Figma, Google Analytics, and HubSpot.</li>
-                <li>Implemented SEO optimization and UI/UX improvements.</li>
               </ul>
             </div>
           </div>
@@ -413,7 +353,7 @@ export default function Home() {
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
                   <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Co-first author on research paper currently under peer review, contributing significantly to methodology and analysis.</li>
+                    <li>Co-first author on the paper (arXiv, 2024), contributing significantly to methodology and analysis.</li>
                     <li>Conducted in-depth analysis of risks associated with automated role selection mechanisms in LLMs, highlighting potential failure modes and safety concerns.</li>
                     <li>Systematically examined how assigning different persona roles (even neutral ones) impacts the generation frequency and severity of biased or harmful content across various contexts.</li>
                     <li>Contributed to the experimental design, data collection process, and interpretation of results for the study, ensuring rigorous evaluation.</li>
@@ -444,6 +384,9 @@ export default function Home() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
+                      WWW 2026
+                    </span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
                       LLM Safety
                     </span>
                     <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
@@ -462,13 +405,90 @@ export default function Home() {
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
                    <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Co-first author on paper under review, sharing primary responsibility for the research direction and execution.</li>
+                    <li>Author on paper published at ACM Web Conference (WWW) 2026 (Companion Proceedings).</li>
                     <li>Provided empirical evidence demonstrating how advanced reasoning prompts (e.g., chain-of-thought, multi-agent interactions) can inadvertently bypass safety alignments, leading to undesirable outputs.</li>
                     <li>Performed comprehensive evaluations across a diverse set of large language models and utilized multiple established safety benchmarks to ensure the robustness and generalizability of findings.</li>
                     <li>Investigated the influence of prompt structure, complexity, and language variations on model safety performance during complex reasoning tasks.</li>
                     <li>Leveraged Python, various LLM APIs, and efficient inference libraries like vLLM and Ollama for large-scale experiments, coupled with detailed statistical data analysis.</li>
                   </ul>
-                  {/* No public link mentioned in abstract/CV */}
+                  <Button
+                    href="https://dl.acm.org/doi/abs/10.1145/3774905.3795475"
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Read Paper (ACM)
+                  </Button>
+                </div>
+              }
+            />
+
+            {/* Card 5: Syntactic Prediction (EMNLP) */}
+            <FlipCard
+              frontContent={
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-surface">Syntactic Prediction through Reinforcement Learning</h3>
+                  <p className="text-surface/80">
+                    A two-stage post-training framework (cold-start SFT, then RL) that pushes LLMs to state-of-the-art on hierarchical syntactic prediction.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">EMNLP 2026 Main</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">Reinforcement Learning</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">LLM Post-training</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">Structured Prediction</span>
+                  </div>
+                </div>
+              }
+              backContent={
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>Author on paper accepted to EMNLP 2026 main conference.</li>
+                    <li>Two-stage post-training: a cold-start stage adapts the model to a unified syntax-generation format, then RL directly optimizes structure-level objectives.</li>
+                    <li>Syntax-RL outperforms supervised LLM baselines and achieves state-of-the-art on constituency parsing and CCG supertagging, with gains driven mainly by the RL stage.</li>
+                    <li>Technologies: Python, PyTorch, RL, LLM Post-training</li>
+                  </ul>
+                </div>
+              }
+            />
+
+            {/* Card 6: From Biased Chatbots to Biased Agents (AAAI) */}
+            <FlipCard
+              frontContent={
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-surface">From Biased Chatbots to Biased Agents</h3>
+                  <p className="text-surface/80">
+                    The first systematic study showing demographic persona cues degrade LLM agent performance — a robustness and safety risk beyond text generation.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">AAAI 2026 Workshop</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">LLM Agents</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">Agent Robustness</span>
+                    <span className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">Persona Bias</span>
+                  </div>
+                </div>
+              }
+              backContent={
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-surface">Details & Contributions</h3>
+                  <ul className="list-disc list-inside text-surface/80 space-y-2">
+                    <li>First author on paper accepted to the AAAI 2026 TrustAgent Workshop.</li>
+                    <li>First systematic case study showing task-irrelevant, demographic-based persona assignments alter LLM agents' behavior and degrade performance by up to 26.2% across diverse agentic domains.</li>
+                    <li>Effects persist across task types and model architectures, exposing an overlooked vulnerability for the safe deployment of LLM agents.</li>
+                    <li>Technologies: LLM Agent, Docker, Apptainer, Sandboxing, Agentic Benchmarks, vLLM</li>
+                  </ul>
+                  <Button
+                    href="https://arxiv.org/abs/2602.12285"
+                    variant="outline"
+                    size="sm"
+                    className="mt-4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Read Paper (arXiv)
+                  </Button>
                 </div>
               }
             />
@@ -529,48 +549,6 @@ export default function Home() {
                       rel="noopener noreferrer"
                     >
                       Live Demo
-                    </Button>
-                  </div>
-                </div>
-              }
-            />
-            <FlipCard
-              frontContent={
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-surface">Pathfinding Visualizer</h3>
-                  <p className="text-surface/80">
-                    Simple interactive tool demonstrating basic pathfinding algorithms with visual feedback. A beginner coding project.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {['React', 'JavaScript', 'Algorithms'].map((tech) => (
-                      <span key={tech} className="px-3 py-1 text-sm rounded-full bg-accent-green/10 text-accent-green">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              }
-              backContent={
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-surface">Details & Implementation</h3>
-                  <ul className="list-disc list-inside text-surface/80 space-y-2">
-                    <li>Basic student learning project created to practice JavaScript and React fundamentals while exploring simple algorithms</li>
-                    <li>Implemented a few pathfinding algorithms (A*, BFS) with basic visual representation on a simple grid</li>
-                    <li>Created a minimal UI allowing users to place start/end points and draw basic obstacles</li>
-                    <li>Project has limitations including performance issues with larger grids and limited customization options</li>
-                    <li>Built primarily as a personal learning exercise to understand how these algorithms traverse graphs</li>
-                    <li>Not intended as a robust or feature-complete implementation, but rather as a hands-on way to visualize concepts from algorithms courses</li>
-                  </ul>
-                  <div className="mt-4">
-                    <Button
-                      href="https://github.com/l6cao/pathfinding-visualizer"
-                      variant="outline"
-                      size="sm"
-                      className="w-full"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      GitHub Repository
                     </Button>
                   </div>
                 </div>
